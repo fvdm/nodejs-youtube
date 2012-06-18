@@ -141,7 +141,11 @@ app.user = function( userid, cb ) {
 		
 		// Profile
 		profile: function( cb ) {
-			app.talk( 'GET', 'feeds/api/users/'+ userid, {}, cb, true )
+			app.talk( 'GET', 'feeds/api/users/'+ userid, {}, function( res ) {
+				if( res.entry ) {
+					cb( res.entry )
+				}
+			}, true )
 		}
 		
 	}
