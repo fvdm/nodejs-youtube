@@ -227,9 +227,9 @@ app.talk = function( path, fields, cb, oldJSON ) {
 				// ok
 				data = JSON.parse( data )
 				if( oldJSON ) {
-					cb( data, response.headers )
+					cb( data )
 				} else if( data.data ) {
-					cb( data.data, response.headers )
+					cb( data.data )
 				}
 				
 			}
