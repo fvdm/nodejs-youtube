@@ -32,6 +32,16 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/videos', vars, cb )
 	},
 	
+	// Related videos
+	related: function( videoid, cb ) {
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/related', cb )
+	},
+	
+	// Responses
+	responses: function( videoid, cb ) {
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', cb )
+	},
+	
 }
 
 
