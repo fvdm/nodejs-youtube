@@ -101,7 +101,7 @@ app.video = function( videoid, cb ) {
 	return {
 		
 		details: function( cb ) {
-			app.feeds.video( videoid, cb )
+			app.video( videoid, cb )
 		},
 		
 		related: function( vars, cb ) {
