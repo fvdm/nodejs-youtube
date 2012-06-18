@@ -38,7 +38,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/related', cb )
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/related', vars, cb )
 	},
 	
 	// Responses
@@ -47,7 +47,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', cb )
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
 	},
 	
 	// One video
@@ -69,7 +69,7 @@ app.feeds = {
 					var cb = vars
 					var vars = {}
 				}
-				app.feeds.related( videoid, fcb )
+				app.feeds.related( videoid, vars, fcb )
 			},
 			
 			responses: function( vars, fcb ) {
@@ -77,7 +77,7 @@ app.feeds = {
 					var cb = vars
 					var vars = {}
 				}
-				app.feeds.responses( videoid, fcb )
+				app.feeds.responses( videoid, vars. fcb )
 			}
 			
 		}
