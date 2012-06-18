@@ -80,6 +80,19 @@ app.feeds = {
 		}
 		
 		app.talk( 'GET', 'feeds/api/standardfeeds/'+ feed, vars, cb )
+	},
+	
+	// User
+	user: {
+		
+		// Favorites
+		favorites: function( userid, vars, cb ) {
+			if( !cb && typeof vars == 'function' ) {
+				var cb = vars
+				var vars = {}
+			}
+			app.talk( 'GET', 'feeds/api/users/'+ userid +'/favorites', vars, cb )
+		}
 		
 	}
 	
