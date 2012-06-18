@@ -42,6 +42,32 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', cb )
 	},
 	
+	// One video
+	video: function( videoid, cb ) {
+		
+		if( typeof cb == 'function' ) {
+			app.talk( 'GET', 'feeds/api/videos/'+ videoid, cb )
+		}
+		
+		// video shortcuts
+		return {
+			
+			details: function( fcb ) {
+				app.feeds.video( videoid, fcb )
+			},
+			
+			related: function( fcb ) {
+				app.feeds.related( videoid, fcb )
+			},
+			
+			responses: function( fcb ) {
+				app.feeds.responses( videoid, fcb )
+			}
+			
+		}
+		
+	},
+	
 }
 
 
