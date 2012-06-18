@@ -50,38 +50,8 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
 	},
 	
-	// One video
-	video: function( videoid, cb ) {
-		
-		if( typeof cb == 'function' ) {
-			app.talk( 'GET', 'feeds/api/videos/'+ videoid, cb )
 		}
-		
-		// video shortcuts
-		return {
-			
-			details: function( fcb ) {
-				app.feeds.video( videoid, fcb )
-			},
-			
-			related: function( vars, fcb ) {
-				if( !cb && typeof vars == 'function' ) {
-					var cb = vars
-					var vars = {}
-				}
-				app.feeds.related( videoid, vars, fcb )
-			},
-			
-			responses: function( vars, fcb ) {
-				if( !cb && typeof vars == 'function' ) {
-					var cb = vars
-					var vars = {}
-				}
-				app.feeds.responses( videoid, vars. fcb )
 			}
-			
-		}
-		
 	},
 	
 	// Standard feed
@@ -103,6 +73,52 @@ app.feeds = {
 			var vars = {}
 		}
 		app.talk( 'GET', 'feeds/api/playlists/'+ playlistid, vars, cb )
+	}
+	
+}
+
+
+///////////
+// VIDEO //
+///////////
+
+app.video = function( videoid, cb ) {
+	
+	if( typeof cb == 'function' ) {
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid, cb )
+	}
+	
+	// video shortcuts
+	return {
+		
+		details: function( cb ) {
+			app.feeds.video( videoid, cb )
+		},
+		
+		related: function( vars, cb ) {
+			if( !cb && typeof vars == 'function' ) {
+				var cb = vars
+				var vars = {}
+			}
+			app.feeds.related( videoid, vars, cb )
+		},
+		
+		responses: function( vars, cb ) {
+			if( !cb && typeof vars == 'function' ) {
+				var cb = vars
+				var vars = {}
+			}
+			app.feeds.responses( videoid, vars. cb )
+		},
+		
+		comments: function( vars, cb ) {
+			if( !cb && typeof vars == 'function' ) {
+				var cb = vars
+				var vars = {}
+			}
+			app.feeds.comments( videoid, vars, cb )
+		}
+		
 	}
 	
 }
