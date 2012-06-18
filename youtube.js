@@ -103,7 +103,7 @@ app.feeds = {
 // COMMUNICATE //
 /////////////////
 
-app.talk = function( type, path, fields, cb ) {
+app.talk = function( type, path, fields, cb, normalJSON ) {
 	
 	// fix callback
 	if( !cb && typeof fields == 'function' ) {
@@ -117,7 +117,7 @@ app.talk = function( type, path, fields, cb ) {
 	}
 	
 	// force JSON-C and version
-	fields.alt = 'jsonc'
+	fields.alt = normalJSON ? 'json' : 'jsonc'
 	fields.v = 2
 	
 	// prepare
@@ -161,8 +161,10 @@ app.talk = function( type, path, fields, cb ) {
 				
 				// ok
 				data = JSON.parse( data )
-				if( data.data ) {
-					cb( data.data )
+				if( normalJSON ) {
+					cb( data, response.headers )
+				} else if( data.data ) {
+					cb( data.data, response.headers )
 				}
 				
 			}
