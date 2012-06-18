@@ -21,7 +21,7 @@ var app = new EventEmitter()
 // FEEDS //
 ///////////
 
-app.feed = {
+app.feeds = {
 	
 }
 
