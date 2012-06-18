@@ -33,12 +33,20 @@ app.feeds = {
 	},
 	
 	// Related videos
-	related: function( videoid, cb ) {
+	related: function( videoid, vars, cb ) {
+		if( !cb && typeof vars == 'function' ) {
+			var cb = vars
+			var vars = {}
+		}
 		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/related', cb )
 	},
 	
 	// Responses
-	responses: function( videoid, cb ) {
+	responses: function( videoid, vars, cb ) {
+		if( !cb && typeof vars == 'function' ) {
+			var cb = vars
+			var vars = {}
+		}
 		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', cb )
 	},
 	
@@ -56,11 +64,19 @@ app.feeds = {
 				app.feeds.video( videoid, fcb )
 			},
 			
-			related: function( fcb ) {
+			related: function( vars, fcb ) {
+				if( !cb && typeof vars == 'function' ) {
+					var cb = vars
+					var vars = {}
+				}
 				app.feeds.related( videoid, fcb )
 			},
 			
-			responses: function( fcb ) {
+			responses: function( vars, fcb ) {
+				if( !cb && typeof vars == 'function' ) {
+					var cb = vars
+					var vars = {}
+				}
 				app.feeds.responses( videoid, fcb )
 			}
 			
