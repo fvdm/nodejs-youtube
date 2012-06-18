@@ -1,3 +1,15 @@
+/*
+	youtube-data / nodejs-youtube
+	
+	Node.js module to access YouTube data resources.
+	
+	This code is released as COPYLEFT, meaning you can do anything
+	with it except copyrighting it. If possible it would be nice to
+	include the source URL with the code for future reference:
+	
+	https://github.com/fvdm/nodejs-youtube
+*/
+
 var	https = require('https'),
 	EventEmitter = require('events').EventEmitter,
 	querystring = require('querystring')
