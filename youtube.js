@@ -23,6 +23,15 @@ var app = new EventEmitter()
 
 app.feeds = {
 	
+	// Videos
+	videos: function( vars, cb ) {
+		if( !cb && typeof vars == 'function' ) {
+			var cb = vars
+			var vars = {}
+		}
+		app.talk( 'GET', 'feeds/api/videos', vars, cb )
+	},
+	
 }
 
 
