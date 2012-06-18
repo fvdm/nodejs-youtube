@@ -1,5 +1,5 @@
 /*
-	youtube-data / nodejs-youtube
+	youtube-api / nodejs-youtube
 	
 	Node.js module to access YouTube data resources.
 	
