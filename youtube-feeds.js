@@ -205,7 +205,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 		port:			443,
 		path:			'/'+ path +'?'+ querystring.stringify( fields ),
 		headers:		{
-			'User-Agent':	'youtube-api.js (https://github.com/fvdm/nodejs-youtube)',
+			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
 			'Accept':		'application/json'
 		},
 		method:			'GET'
