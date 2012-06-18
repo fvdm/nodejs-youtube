@@ -2,7 +2,7 @@
   "author": "Franklin van de Meent <fr@nkl.in> (http://frankl.in)",
   "name": "youtube-feeds",
   "description": "Access public YouTube API feeds, mostly with the clean JSON-C results",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/fvdm/nodejs-youtube",
   "repository": {
     "type": "git",
