@@ -182,7 +182,7 @@ app.user = function( userid, cb ) {
 // COMMUNICATE //
 /////////////////
 
-app.talk = function( type, path, fields, cb, normalJSON ) {
+app.talk = function( type, path, fields, cb, oldJSON ) {
 	
 	// fix callback
 	if( !cb && typeof fields == 'function' ) {
@@ -196,7 +196,7 @@ app.talk = function( type, path, fields, cb, normalJSON ) {
 	}
 	
 	// force JSON-C and version
-	fields.alt = normalJSON ? 'json' : 'jsonc'
+	fields.alt = oldJSON ? 'json' : 'jsonc'
 	fields.v = 2
 	
 	// prepare
@@ -240,7 +240,7 @@ app.talk = function( type, path, fields, cb, normalJSON ) {
 				
 				// ok
 				data = JSON.parse( data )
-				if( normalJSON ) {
+				if( oldJSON ) {
 					cb( data, response.headers )
 				} else if( data.data ) {
 					cb( data.data, response.headers )
