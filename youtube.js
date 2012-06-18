@@ -98,16 +98,42 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/standardfeeds/'+ feed, vars, cb )
 	},
 	
-	// User
-	user: {
+
+
+//////////
+// USER //
+//////////
+	
+// User
+app.user = function( userid, cb ) {
+	
+	if( cb && typeof cb == 'function' ) {
+		app.user( userid ).profile( cb )
+	}
+	
+	return {
 		
 		// Favorites
-		favorites: function( userid, vars, cb ) {
+		favorites: function( vars, cb ) {
 			if( !cb && typeof vars == 'function' ) {
 				var cb = vars
 				var vars = {}
 			}
 			app.talk( 'GET', 'feeds/api/users/'+ userid +'/favorites', vars, cb )
+		},
+		
+		// Playlists
+		playlists: function( vars, cb ) {
+			if( !cb && typeof vars == 'function' ) {
+				var cb = vars
+				var vars = {}
+			}
+			app.talk( 'GET', 'feeds/api/users/'+ userid +'/playlists', vars, cb )
+		},
+		
+		// Profile
+		profile: function( cb ) {
+			app.talk( 'GET', 'feeds/api/users/'+ userid, {}, cb, true )
 		}
 		
 	}
