@@ -98,6 +98,16 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/standardfeeds/'+ feed, vars, cb )
 	},
 	
+	// Playlist
+	playlist: function( playlistid, vars, cb ) {
+		if( !cb && typeof vars == 'function' ) {
+			var cb = vars
+			var vars = {}
+		}
+		app.talk( 'GET', 'feeds/api/playlists/'+ playlistid, vars, cb )
+	}
+	
+}
 
 
 //////////
