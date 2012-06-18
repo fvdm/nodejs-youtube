@@ -1,7 +1,7 @@
 /*
-	youtube-api / nodejs-youtube
+	youtube-feeds
 	
-	Node.js module to access YouTube data resources.
+	Node.js module to access public YouTube data feeds.
 	
 	This code is released as COPYLEFT, meaning you can do anything
 	with it except copyrighting it. If possible it would be nice to
@@ -29,7 +29,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos', vars, cb )
+		app.talk( 'feeds/api/videos', vars, cb )
 	},
 	
 	// Related videos
@@ -38,7 +38,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/related', vars, cb )
+		app.talk( 'feeds/api/videos/'+ videoid +'/related', vars, cb )
 	},
 	
 	// Responses
@@ -47,7 +47,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
+		app.talk( 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
 	},
 	
 	// Comments
@@ -56,7 +56,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/comments', vars, function( res ) {
+		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, function( res ) {
 			if( res.feed && res.feed.entry ) {
 				cb( res.feed.entry )
 			}
@@ -72,7 +72,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/standardfeeds/'+ feed, vars, cb )
+		app.talk( 'feeds/api/standardfeeds/'+ feed, vars, cb )
 	},
 	
 	// Playlist
@@ -81,7 +81,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'GET', 'feeds/api/playlists/'+ playlistid, vars, cb )
+		app.talk( 'feeds/api/playlists/'+ playlistid, vars, cb )
 	}
 	
 }
@@ -94,7 +94,7 @@ app.feeds = {
 app.video = function( videoid, cb ) {
 	
 	if( typeof cb == 'function' ) {
-		app.talk( 'GET', 'feeds/api/videos/'+ videoid, cb )
+		app.talk( 'feeds/api/videos/'+ videoid, cb )
 	}
 	
 	// video shortcuts
@@ -152,7 +152,7 @@ app.user = function( userid, cb ) {
 				var cb = vars
 				var vars = {}
 			}
-			app.talk( 'GET', 'feeds/api/users/'+ userid +'/favorites', vars, cb )
+			app.talk( 'feeds/api/users/'+ userid +'/favorites', vars, cb )
 		},
 		
 		// Playlists
@@ -161,12 +161,12 @@ app.user = function( userid, cb ) {
 				var cb = vars
 				var vars = {}
 			}
-			app.talk( 'GET', 'feeds/api/users/'+ userid +'/playlists', vars, cb )
+			app.talk( 'feeds/api/users/'+ userid +'/playlists', vars, cb )
 		},
 		
 		// Profile
 		profile: function( cb ) {
-			app.talk( 'GET', 'feeds/api/users/'+ userid, {}, function( res ) {
+			app.talk( 'feeds/api/users/'+ userid, {}, function( res ) {
 				if( res.entry ) {
 					cb( res.entry )
 				}
@@ -182,7 +182,7 @@ app.user = function( userid, cb ) {
 // COMMUNICATE //
 /////////////////
 
-app.talk = function( type, path, fields, cb, oldJSON ) {
+app.talk = function( path, fields, cb, oldJSON ) {
 	
 	// fix callback
 	if( !cb && typeof fields == 'function' ) {
@@ -200,29 +200,15 @@ app.talk = function( type, path, fields, cb, oldJSON ) {
 	fields.v = 2
 	
 	// prepare
-	var requestHeaders = {
-		'User-Agent':	'youtube-api.js (https://github.com/fvdm/nodejs-youtube)',
-		'Accept':		'application/json'
-	}
-	
-	var query = querystring.stringify( fields )
-	
-	doPost = false
-	if( type.match( /(POST|DELETE|PUT)/ ) ) {
-		doPost = true
-		requestHeaders['Content-Type'] = 'applications/x-www-form-urlencoded'
-		requestHeaders['Content-Length'] = query.length
-	} else {
-		path += '?'+ query
-	}
-	
 	var options = {
 		hostname:		'gdata.youtube.com',
 		port:			443,
-		path:			'/'+ path,
-		headers:		requestHeaders,
-		method:			type,
-		agent:			false
+		path:			'/'+ path +'?'+ querystring.stringify( fields ),
+		headers:		{
+			'User-Agent':	'youtube-api.js (https://github.com/fvdm/nodejs-youtube)',
+			'Accept':		'application/json'
+		},
+		method:			'GET'
 	}
 	
 	// request
@@ -251,11 +237,6 @@ app.talk = function( type, path, fields, cb, oldJSON ) {
 		})
 		
 	})
-	
-	// post & do it
-	if( doPost ) {
-		request.send( query )
-	}
 	
 	request.end()
 	
