@@ -89,12 +89,10 @@ app.feeds = {
 	// feeds.standard( 'most_recent', console.log )
 	// feeds.standard( 'NL/top_rated_News', {time: 'today'}, console.log )
 	standard: function( feed, vars, cb ) {
-		
 		if( !cb && typeof vars == 'function' ) {
 			var cb = vars
 			var vars = {}
 		}
-		
 		app.talk( 'GET', 'feeds/api/standardfeeds/'+ feed, vars, cb )
 	},
 	
