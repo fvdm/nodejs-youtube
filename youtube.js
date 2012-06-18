@@ -50,8 +50,17 @@ app.feeds = {
 		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
 	},
 	
+	// Comments
+	comments: function( videoid, vars, cb ) {
+		if( !cb && typeof vars == 'function' ) {
+			var cb = vars
+			var vars = {}
 		}
+		app.talk( 'GET', 'feeds/api/videos/'+ videoid +'/comments', vars, function( res ) {
+			if( res.feed && res.feed.entry ) {
+				cb( res.feed.entry )
 			}
+		}, true )
 	},
 	
 	// Standard feed
