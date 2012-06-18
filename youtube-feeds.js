@@ -196,7 +196,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 	}
 	
 	// force JSON-C and version
-	fields.alt = oldJSON ? 'json' : 'jsonc'
+	fields.alt = oldJSON === true ? 'json' : 'jsonc'
 	fields.v = 2
 	
 	// prepare
