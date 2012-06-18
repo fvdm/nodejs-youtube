@@ -43,8 +43,9 @@ app.talk = function( type, path, fields, cb ) {
 		var fields = {}
 	}
 	
-	// force JSON
-	fields.alt = 'json'
+	// force JSON-C and version
+	fields.alt = 'jsonc'
+	fields.v = 2
 	
 	// prepare
 	var requestHeaders = {
@@ -85,8 +86,11 @@ app.talk = function( type, path, fields, cb ) {
 			// validate
 			if( data.length >= 2 && data.substr(0,1) == '{' && data.substr( data.length -1, 1 ) == '}' ) {
 				
-				// done
-				cb( JSON.parse( data ) )
+				// ok
+				data = JSON.parse( data )
+				if( data.data ) {
+					cb( data.data )
+				}
 				
 			}
 			
