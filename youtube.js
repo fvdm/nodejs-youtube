@@ -33,13 +33,13 @@ app.feed = {
 app.talk = function( type, path, fields, cb ) {
 	
 	// fix callback
-	if( cb == undefined && typeof fields == 'function' ) {
+	if( !cb && typeof fields == 'function' ) {
 		var cb = fields
 		var fields = {}
 	}
 	
 	// fix fields
-	if( fields == undefined || typeof fields != 'object' ) {
+	if( !fields || typeof fields != 'object' ) {
 		var fields = {}
 	}
 	
