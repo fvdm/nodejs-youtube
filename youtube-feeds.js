@@ -222,6 +222,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 		response.on( 'end', function() {
 			
 			// validate
+			var data = data.trim()
 			if( data.length >= 2 && data.substr(0,1) == '{' && data.substr( data.length -1, 1 ) == '}' ) {
 				
 				// ok
