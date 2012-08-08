@@ -204,9 +204,9 @@ app.talk = function( path, fields, cb, oldJSON ) {
 		hostname:		'gdata.youtube.com',
 		port:			443,
 		path:			'/'+ path +'?'+ querystring.stringify( fields ),
-		headers:		{
+		headers: {
 			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
-			'Accept':		'application/json'
+			'Accept':	'application/json'
 		},
 		method:			'GET'
 	}
