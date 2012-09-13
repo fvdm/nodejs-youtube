@@ -243,7 +243,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 			data = data.toString('utf8').trim()
 			
 			// validate
-			if( data.length >= 2 && data.substr(0,1) == '{' && data.substr( data.length -1, 1 ) == '}' ) {
+			if( data.match( /^(\{.*\}|\[.*\])$/ ) ) {
 				
 				// ok
 				data = JSON.parse( data )
