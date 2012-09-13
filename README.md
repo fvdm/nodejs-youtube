@@ -1,6 +1,9 @@
-# nodejs-youtube
+nodejs-youtube
+==============
+
 
 Access public YouTube API feeds from your Node.js apps
+
 
 ## Installation
 
@@ -9,6 +12,7 @@ Access public YouTube API feeds from your Node.js apps
 ```
 npm install youtube-feeds
 ```
+
 
 ## Usage
 
@@ -20,10 +24,13 @@ var youtube = require('youtube-feeds')
 youtube.feeds.videos( {q: 'parkour'}, console.log )
 ```
 
-# Feeds
+
+Feeds
+=====
+
 
 ## feeds.videos
-**( [vars,] callback )**
+### ( [vars], callback )
 
 Get a list of recently published or updated videos, or search them all, filter, sort, etc.
 
@@ -32,9 +39,9 @@ Get a list of recently published or updated videos, or search them all, filter, 
 ```js
 youtube.feeds.videos(
 	{
-		q: 				'parkour',
+		q: 		'parkour',
 		'max-results':	2,
-		orderby:		'published'
+		orderby:	'published'
 	},
 	console.log
 )
@@ -88,27 +95,32 @@ Output:
           syndicate: 'allowed' } } ] }
 ```
 
+
 ## feeds.related
-**( videoid, [vars,] callback )**
+### ( videoid, [vars], callback )
 
 Get related videos for a video with **videoid**.
 
+
 ## feeds.responses 
-**( videoid, [vars,] callback )**
+### ( videoid, [vars], callback )
 
 Get videos in response to **videoid**.
 
+
 ## feeds.comments
-**( videoid, [vars,] callback )**
+### ( videoid, [vars], callback )
 
 Get comments to a video. This is still in the original XML-to-JSON format as YouTube does not have JSON-C available for this feed. This may change in future (major) versions of this module.
 
+
 ## feeds.standard
-**( feed, [vars,] callback )**
+### ( feed, [vars], callback )
 
 Get a standard feed, such as most viewed or top rated videos. Worldwide, local or by subject (or a combination).
 
 [API docs: Standard feeds](https://developers.google.com/youtube/2.0/reference#Standard_feeds)
+
 
 **Example:** most recent videos worldwide:
 
@@ -116,23 +128,29 @@ Get a standard feed, such as most viewed or top rated videos. Worldwide, local o
 youtube.feeds.standard( 'most_recent', console.log )
 ```
 
+
 **Example:** today's top-rated News videos in the Netherlands:
 
 ```js
 youtube.feeds.standard( 'NL/top_rated_News', {time: 'today'}, console.log )
 ```
 
+
 ## feeds.playlist
-**( playlistid, [vars,] callback )**
+### ( playlistid, [vars], callback )
 
 Get videos on a certain playlist.
 
-# Video
+
+Video
+=====
+
 
 The **video** function provides shorthand methods for one specific video.
 
+
 ## video
-**( videoid [, callback] )**
+### ( videoid, [callback] )
 
 Same as video.details
 
@@ -140,8 +158,9 @@ Same as video.details
 youtube.video( 'ern37eWDnT0', console.log )
 ```
 
+
 ## video.details
-**( callback )**
+### ( callback )
 
 Get details for one video.
 
@@ -149,8 +168,9 @@ Get details for one video.
 youtube.video( 'ern37eWDnT0' ).details( console.log )
 ```
 
+
 ## video.related
-**( [vars,] callback )**
+### ( [vars], callback )
 
 Get related videos, same as **feeds.related**.
 
@@ -158,9 +178,9 @@ Get related videos, same as **feeds.related**.
 youtube.video( 'ern37eWDnT0' ).related( {'max-results': 2}, console.log )
 ```
 
-## video.responses
 
-**( [vars,] callback )**
+## video.responses
+### ( [vars], callback )
 
 Get videos in response to one video, same as **feeds.responses**.
 
@@ -168,9 +188,9 @@ Get videos in response to one video, same as **feeds.responses**.
 youtube.video( 'ern37eWDnT0' ).responses( {'max-results': 2}, console.log )
 ```
 
-## videos.comments
 
-**( [vars,] callback )**
+## videos.comments
+### ( [vars], callback )
 
 Get comments to a video, same as **feeds.comments**.
 
@@ -178,12 +198,15 @@ Get comments to a video, same as **feeds.comments**.
 youtube.video( 'ern37eWDnT0' ).comments( {'max-results': 2}, console.log )
 ```
 
-# User
+
+User
+====
 
 Get (public) feed data for one specific user.
 
+
 ## user
-**( userid [, callback] )**
+### ( userid, [callback] )
 
 Same as user.profile
 
@@ -191,8 +214,9 @@ Same as user.profile
 youtube.user( 'unknowntitle', console.log )
 ```
 
+
 ## user.profile
-**( callback )**
+### ( callback )
 
 Get user profile, in old XML-to-JSON style.
 
@@ -200,8 +224,9 @@ Get user profile, in old XML-to-JSON style.
 youtube.user( 'unknowntitle' ).profile( console.log )
 ```
 
+
 ## user.favorites
-**( [vars,] callback )**
+### ( [vars], callback )
 
 Get the user's favorite videos. You can optionally filter the results like the other feeds.
 
@@ -210,14 +235,17 @@ youtube.user( 'unknowntitle' ).favorites( console.log )
 ```
 
 ## user.playlists
-**( [vars,] callback )**
+### ( [vars], callback )
 
 Get user playlists. Use **feeds.playlist** to get the videos.
 
-# Communication
+
+Communication
+=============
+
 
 ## talk
-**( path [, fields] callback [, oldJSON] )**
+### ( path, [fields], callback, [oldJSON] )
 
 Directly talk to the API. This function takes care of connecting and calling the callback only when valid JSON is returned.
 
@@ -226,7 +254,10 @@ Directly talk to the API. This function takes care of connecting and calling the
 * **callback** - function - callback function to receive results
 * **oldJSON** - force old XML-to-JSON format instead of clean JSON-C
 
-# License
+
+License
+=======
+
 
 This is free and unencumbered software released into the public domain.
 
