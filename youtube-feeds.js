@@ -236,14 +236,13 @@ app.talk = function( path, fields, cb, oldJSON ) {
 	var request = https.request( options, function( response ) {
 		
 		// response
-		response.setEncoding('utf8')
 		var data = ''
-		
 		response.on( 'data', function( chunk ) { data += chunk })
 		response.on( 'end', function() {
 			
+			data = data.toString('utf8').trim()
+			
 			// validate
-			var data = data.trim()
 			if( data.length >= 2 && data.substr(0,1) == '{' && data.substr( data.length -1, 1 ) == '}' ) {
 				
 				// ok
