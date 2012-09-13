@@ -85,47 +85,6 @@ Output:
           embed: 'allowed',
           list: 'allowed',
           autoPlay: 'allowed',
-          syndicate: 'allowed' } },
-     { id: 'cNvJy0zoXOY',
-       uploaded: '2010-05-01T02:21:25.000Z',
-       updated: '2012-06-18T16:24:52.000Z',
-       uploader: 'damienwalters',
-       category: 'Sports',
-       title: 'Damien Walters 2010',
-       description: 'Training and new things [..]',
-       tags: 
-        [ 'Tumbling',
-          'Gymnastics',
-          'Freerunning',
-          'Stunts' ],
-       thumbnail: 
-        { sqDefault: 'http://i.ytimg.com/vi/cNvJy0zoXOY/default.jpg',
-          hqDefault: 'http://i.ytimg.com/vi/cNvJy0zoXOY/hqdefault.jpg' },
-       player: 
-        { default: 'https://www.youtube.com/watch?v=cNvJy0zoXOY&feature=youtube_gdata_player',
-          mobile: 'https://m.youtube.com/details?v=cNvJy0zoXOY' },
-       content: 
-        { '1': 'rtsp://v7.cache7.c.youtube.com/CiILENy73wIaGQnmXOhMy8nbcBMYDSANFEgGUgZ2aWRlb3MM/0/0/0/video.3gp',
-          '5': 'https://www.youtube.com/v/cNvJy0zoXOY?version=3&f=videos&app=youtube_gdata',
-          '6': 'rtsp://v3.cache5.c.youtube.com/CiILENy73wIaGQnmXOhMy8nbcBMYESARFEgGUgZ2aWRlb3MM/0/0/0/video.3gp' },
-       duration: 164,
-       aspectRatio: 'widescreen',
-       recorded: '2010-06-29',
-       location: 'england',
-       rating: 4.969567,
-       likeCount: '94337',
-       ratingCount: 95060,
-       viewCount: 18004468,
-       favoriteCount: 107421,
-       commentCount: 31015,
-       accessControl: 
-        { comment: 'allowed',
-          commentVote: 'allowed',
-          videoRespond: 'moderated',
-          rate: 'allowed',
-          embed: 'allowed',
-          list: 'allowed',
-          autoPlay: 'allowed',
           syndicate: 'allowed' } } ] }
 ```
 
