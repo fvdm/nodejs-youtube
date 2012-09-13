@@ -222,14 +222,14 @@ app.talk = function( path, fields, cb, oldJSON ) {
 	
 	// prepare
 	var options = {
-		hostname:		'gdata.youtube.com',
-		port:			443,
-		path:			'/'+ path +'?'+ querystring.stringify( fields ),
+		hostname:	'gdata.youtube.com',
+		port:		443,
+		path:		'/'+ path +'?'+ querystring.stringify( fields ),
 		headers: {
 			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
 			'Accept':	'application/json'
 		},
-		method:			'GET'
+		method:		'GET'
 	}
 	
 	// request
