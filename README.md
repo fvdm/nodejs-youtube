@@ -173,7 +173,7 @@ The **video** function provides shorthand methods for one specific video.
 ## video
 ### ( videoid, [callback] )
 
-Same as video.details
+Same as [video.details](#videodetails)
 
 ```js
 youtube.video( 'ern37eWDnT0', console.log )
@@ -193,7 +193,7 @@ youtube.video( 'ern37eWDnT0' ).details( console.log )
 ## video.related
 ### ( [vars], callback )
 
-Get related videos, same as **feeds.related**.
+Get related videos, same as [feeds.related](#feedsrelated).
 
 ```js
 youtube.video( 'ern37eWDnT0' ).related( {'max-results': 2}, console.log )
@@ -203,7 +203,7 @@ youtube.video( 'ern37eWDnT0' ).related( {'max-results': 2}, console.log )
 ## video.responses
 ### ( [vars], callback )
 
-Get videos in response to one video, same as **feeds.responses**.
+Get videos in response to one video, same as [feeds.responses](#feedsresponses).
 
 ```js
 youtube.video( 'ern37eWDnT0' ).responses( {'max-results': 2}, console.log )
@@ -213,7 +213,7 @@ youtube.video( 'ern37eWDnT0' ).responses( {'max-results': 2}, console.log )
 ## videos.comments
 ### ( [vars], callback )
 
-Get comments to a video, same as **feeds.comments**.
+Get comments to a video, same as [feeds.comments](#feedscomments).
 
 ```js
 youtube.video( 'ern37eWDnT0' ).comments( {'max-results': 2}, console.log )
@@ -229,7 +229,7 @@ Get (public) feed data for one specific user.
 ## user
 ### ( userid, [callback] )
 
-Same as user.profile
+Same as [user.profile](#userprofile).
 
 ```js
 youtube.user( 'unknowntitle', console.log )
@@ -258,7 +258,7 @@ youtube.user( 'unknowntitle' ).favorites( console.log )
 ## user.playlists
 ### ( [vars], callback )
 
-Get user playlists. Use **feeds.playlist** to get the videos.
+Get user playlists. Use **[feeds.playlist](#feedsplaylist)** to get the videos.
 
 
 Communication
