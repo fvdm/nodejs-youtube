@@ -270,11 +270,14 @@ Communication
 
 Directly talk to the API. This function takes care of connecting and calling the callback only when valid JSON is returned.
 
-* **path** - string - full method path without leading slash
-* **fields** - object - GET parameters
-* **callback** - function - callback function to receive results
-* **oldJSON** - force old XML-to-JSON format instead of clean JSON-C
-
+```
+Param      Type       Description
+--------   --------   ----------------------------------------------------
+path       string     full method path without leading slash
+fields     object     GET parameters
+callback   function   callback function to receive results
+oldJSON    boolean    force old XML-to-JSON format instead of clean JSON-C
+```
 
 License
 =======
