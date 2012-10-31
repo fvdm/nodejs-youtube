@@ -77,11 +77,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, function( res ) {
-			if( res.feed && res.feed.entry ) {
-				cb( res.feed.entry )
-			}
-		}, true )
+		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, cb, 'feed.entry' )
 	},
 	
 	// Standard feed
@@ -187,11 +183,7 @@ app.user = function( userid, cb ) {
 		
 		// Profile
 		profile: function( cb ) {
-			app.talk( 'feeds/api/users/'+ userid, {}, function( res ) {
-				if( res.entry ) {
-					cb( res.entry )
-				}
-			}, true )
+			app.talk( 'feeds/api/users/'+ userid, {}, cb, 'entry' )
 		}
 		
 	}
@@ -206,7 +198,7 @@ app.user = function( userid, cb ) {
 // close connection when not done within N milliseconds
 app.timeout = 30000
 
-app.talk = function( path, fields, cb, oldJSON ) {
+app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// fix callback
 	if( !cb && typeof fields == 'function' ) {
@@ -220,7 +212,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 	}
 	
 	// force JSON-C and version
-	fields.alt = oldJSON === true ? 'json' : 'jsonc'
+	fields.alt = oldJsonKey !== undefined ? 'json' : 'jsonc'
 	fields.v = 2
 	
 	// prepare
@@ -244,48 +236,87 @@ app.talk = function( path, fields, cb, oldJSON ) {
 		response.on( 'end', function() {
 			
 			data = data.toString('utf8').trim()
+			var error = false
 			
 			// validate
 			if( data.match( /^(\{.*\}|\[.*\])$/ ) ) {
 				
 				// ok
 				data = JSON.parse( data )
-				if( oldJSON ) {
-					cb( data )
-				} else if( data.data ) {
-					cb( data.data )
-				} else if( data.error ) {
-					cb( data, {origin: 'api', reason: 'error', details: data.error} )
-				} else {
-					cb( data, {origin: 'api', reason: 'invalid response'} )
+				
+				if( data.data !== undefined ) {
+					data = data.data
+				} else if( data.error !== undefined ) {
+					error = {origin: 'api', reason: 'error', details: data.error}
+				} else if( oldJsonKey !== undefined ) {
+					if(
+						oldJsonKey == 'entry'
+						&& data.entry === undefined
+					) {
+						error = {origin: 'api', reason: 'invalid response'}
+					} else if(
+						oldJsonKey == 'feed.entry'
+						&& data.feed === undefined
+						&& data.feed.entry === undefined
+					) {
+						error = {origin: 'api', reason: 'invalid response'}
+					}
 				}
 				
 			} else if( data.match( /^<errors .+<\/errors>$/ ) ) {
 				
 				// xml error response
 				data = xml2json.parser( data )
-				var error = { errors: data.errors.error ? [data.errors.error] : data.errors }
-					
-				// camelcase fix for JSONC compatibility
+				
+				// fix for JSONC compatibility
+				var error = { errors: data.errors.error !== undefined ? [data.errors.error] : data.errors }
 				error.errors.forEach( function( err, errk ) {
-					if( err.internalreason ) {
+					if( err.internalreason !== undefined ) {
 						error.errors[ errk ].internalReason = err.internalreason
 						delete error.errors[ errk ].internalreason
 					}
 				})
 				
-				// callback
-				cb( {}, {origin: 'api', reason: 'error', details: error} )
+				error = {origin: 'api', reason: 'error', details: error}
 				
 			} else {
 				
 				// not json
-				cb( data, {origin: 'api', reason: 'not json'} )
+				error = {origin: 'api', reason: 'not json'}
 				
 			}
 			
+			// parse error
+			if( error && error.origin == 'api' && error.reason == 'error' ) {
+				if(
+					error.details.code !== undefined
+					&& error.details.errors[0] !== undefined
+					&& error.details.errors[0].code == 'ResourceNotFoundException'
+				) {
+					error = {origin: 'method', reason: 'not found', details: error.details}
+				} else if( error.details.code == 403 ) {
+					error = {origin: 'method', reason: 'not allowed', details: error.details}
+				}
+			}
+			
+			// parse response
+			if( data.totalItems !== undefined && data.totalItems == 0 ) {
+				error = {origin: 'method', reason: 'no results'}
+			} else if(
+				data.feed !== undefined
+				&& data.feed['openSearch$totalResults'] !== undefined
+				&& data.feed['openSearch$totalResults']['$t'] !== undefined
+				&& data.feed['openSearch$totalResults']['$t'] == 0
+			) {
+				error = {origin: 'method', reason: 'no results'}
+			}
+			
+			// do callback
+			cb( data, error )
+			
 		})
 		
+		// early disconnect
 		response.on( 'close', function() {
 			cb( {}, {origin: 'api', reason: 'connection closed'} )
 		})
@@ -302,6 +333,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 		cb( {}, {origin: 'request', reason: 'connection error', details: error} )
 	})
 	
+	// perform and finish request
 	request.end()
 	
 }
