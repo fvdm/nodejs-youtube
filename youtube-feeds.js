@@ -250,6 +250,8 @@ app.talk = function( path, fields, cb, oldJSON ) {
 					cb( data )
 				} else if( data.data ) {
 					cb( data.data )
+				} else if( data.error ) {
+					cb( data, {side: 'API', reason: 'error', details: data.error} )
 				} else {
 					cb( data, {side: 'API', reason: 'invalid response'} )
 				}
