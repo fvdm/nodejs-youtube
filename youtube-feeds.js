@@ -250,12 +250,28 @@ app.talk = function( path, fields, cb, oldJSON ) {
 					cb( data )
 				} else if( data.data ) {
 					cb( data.data )
+				} else {
+					cb( {}, {side: 'API', reason: 'invalid response', details: data} )
 				}
+				
+			} else {
+				
+				// not json
+				cb( {}, {side: 'API', reason: 'not json', details: data} )
 				
 			}
 			
 		})
 		
+		response.on( 'close', function() {
+			cb( {}, {side: 'API', reason: 'connection closed'} )
+		})
+		
+	})
+	
+	// connection error
+	request.on( 'error', function( error ) {
+		cb( {}, {side: 'client', reason: 'connection error', details: error} )
 	})
 	
 	request.end()
