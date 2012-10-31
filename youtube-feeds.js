@@ -254,22 +254,22 @@ app.talk = function( path, fields, cb, oldJSON ) {
 				} else if( data.data ) {
 					cb( data.data )
 				} else if( data.error ) {
-					cb( data, {side: 'API', reason: 'error', details: data.error} )
+					cb( data, {origin: 'api', reason: 'error', details: data.error} )
 				} else {
-					cb( data, {side: 'API', reason: 'invalid response'} )
+					cb( data, {origin: 'api', reason: 'invalid response'} )
 				}
 				
 			} else {
 				
 				// not json
-				cb( data, {side: 'API', reason: 'not json'} )
+				cb( data, {origin: 'api', reason: 'not json'} )
 				
 			}
 			
 		})
 		
 		response.on( 'close', function() {
-			cb( {}, {side: 'API', reason: 'connection closed'} )
+			cb( {}, {origin: 'api', reason: 'connection closed'} )
 		})
 		
 	})
@@ -281,7 +281,7 @@ app.talk = function( path, fields, cb, oldJSON ) {
 	
 	// connection error
 	request.on( 'error', function( error ) {
-		cb( {}, {side: 'client', reason: 'connection error', details: error} )
+		cb( {}, {origin: 'request', reason: 'connection error', details: error} )
 	})
 	
 	request.end()
