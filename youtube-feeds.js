@@ -32,10 +32,9 @@ For more information, please refer to <http://unlicense.org>
 */
 
 var	https = require('https'),
-	EventEmitter = require('events').EventEmitter,
 	querystring = require('querystring')
 
-var app = new EventEmitter()
+var app = {}
 
 
 ///////////
