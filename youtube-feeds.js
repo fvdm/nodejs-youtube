@@ -202,6 +202,9 @@ app.user = function( userid, cb ) {
 // COMMUNICATE //
 /////////////////
 
+// close connection when not done within N milliseconds
+app.timeout = 30000
+
 app.talk = function( path, fields, cb, oldJSON ) {
 	
 	// fix callback
@@ -269,6 +272,11 @@ app.talk = function( path, fields, cb, oldJSON ) {
 			cb( {}, {side: 'API', reason: 'connection closed'} )
 		})
 		
+	})
+	
+	// no endless waiting
+	request.setTimeout( app.timeout, function() {
+		request.destroy()
 	})
 	
 	// connection error
