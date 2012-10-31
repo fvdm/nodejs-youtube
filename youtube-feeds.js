@@ -31,8 +31,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 
-var	https = require('https'),
-	querystring = require('querystring')
+var https = require('https'),
+    xml2json = require('node-xml2json'),
+    querystring = require('querystring')
 
 var app = {}
 
@@ -258,6 +259,23 @@ app.talk = function( path, fields, cb, oldJSON ) {
 				} else {
 					cb( data, {origin: 'api', reason: 'invalid response'} )
 				}
+				
+			} else if( data.match( /^<errors .+<\/errors>$/ ) ) {
+				
+				// xml error response
+				data = xml2json.parser( data )
+				var error = { errors: data.errors.error ? [data.errors.error] : data.errors }
+					
+				// camelcase fix for JSONC compatibility
+				error.errors.forEach( function( err, errk ) {
+					if( err.internalreason ) {
+						error.errors[ errk ].internalReason = err.internalreason
+						delete error.errors[ errk ].internalreason
+					}
+				})
+				
+				// callback
+				cb( {}, {origin: 'api', reason: 'error', details: error} )
 				
 			} else {
 				

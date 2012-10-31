@@ -15,7 +15,9 @@
     "url":                "https://github.com/fvdm/nodejs-youtube/issues"
   },
   "main":                 "youtube-feeds.js",
-  "dependencies":         {},
+  "dependencies": {
+    "node-xml2json":      ">=1.0.0 <2.0.0"
+  },
   "devDependencies":      {},
   "optionalDependencies": {},
   "engines": {
