@@ -251,13 +251,13 @@ app.talk = function( path, fields, cb, oldJSON ) {
 				} else if( data.data ) {
 					cb( data.data )
 				} else {
-					cb( {}, {side: 'API', reason: 'invalid response', details: data} )
+					cb( data, {side: 'API', reason: 'invalid response'} )
 				}
 				
 			} else {
 				
 				// not json
-				cb( {}, {side: 'API', reason: 'not json', details: data} )
+				cb( data, {side: 'API', reason: 'not json'} )
 				
 			}
 			
