@@ -301,14 +301,14 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			
 			// parse response
 			if( data.totalItems !== undefined && data.totalItems == 0 ) {
-				error = {origin: 'method', reason: 'no results'}
+				error = {origin: 'method', reason: 'not found'}
 			} else if(
 				data.feed !== undefined
 				&& data.feed['openSearch$totalResults'] !== undefined
 				&& data.feed['openSearch$totalResults']['$t'] !== undefined
 				&& data.feed['openSearch$totalResults']['$t'] == 0
 			) {
-				error = {origin: 'method', reason: 'no results'}
+				error = {origin: 'method', reason: 'not found'}
 			}
 			
 			// do callback
