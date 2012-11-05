@@ -236,7 +236,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 		response.on( 'end', function() {
 			
 			data = data.toString('utf8').trim()
-			var error = false
+			var error = null
 			
 			// validate
 			if( data.match( /^(\{.*\}|\[.*\])$/ ) ) {
@@ -312,13 +312,21 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			}
 			
 			// do callback
-			cb( data, error )
+			var err = null
+			if( error ) {
+				err = new Error( error.reason )
+				err.origin = error.origin
+				err.details = error.details || null
+			}
+			cb( err, data )
 			
 		})
 		
 		// early disconnect
 		response.on( 'close', function() {
-			cb( {}, {origin: 'api', reason: 'connection closed'} )
+			var err = new Error( 'connection closed' )
+			err.origin = 'api'
+			cb( err )
 		})
 		
 	})
@@ -330,7 +338,10 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// connection error
 	request.on( 'error', function( error ) {
-		cb( {}, {origin: 'request', reason: 'connection error', details: error} )
+		var err = new Error( 'connection error' )
+		err.origin = 'request'
+		err.details = error
+		cb( err )
 	})
 	
 	// perform and finish request

@@ -46,6 +46,39 @@ youtube.feeds.videos( {q: 'parkour'}, console.log )
 ```
 
 
+## Callbacks
+
+Each method takes a `callback` function as last parameter. When everything seems alright `err` is null, otherwise `err` will be `instanceof Error` for tracing.
+
+```js
+function( err, data ) {
+	if( err instanceof Error ) {
+		console.log( err )
+	}
+}
+
+Properties:
+
+```
+err.message   : the error message
+err.stack     : stack trace
+err.origin    : what it relates to (api, method, request)
+err.details   : api response or other information when available, or `null`
+```
+
+Messages:
+
+```
+invalid response   api       API response can't be parsed
+not json           api       Expected JSON, received something else
+not found          method    Requested data was not found
+not allowed        method    No permission to requested data
+connected closed   api       Connection dropped early
+connection error   request   Can't connect to API
+error              api       API returned an error, see err.details
+```
+
+
 Feeds
 =====
 
