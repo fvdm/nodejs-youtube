@@ -54,6 +54,8 @@ Each method takes a `callback` function as last parameter. When everything seems
 function( err, data ) {
 	if( err instanceof Error ) {
 		console.log( err )
+	} else {
+		console.log( data )
 	}
 }
 ```
@@ -74,7 +76,7 @@ invalid response   api       API response can't be parsed
 not json           api       Expected JSON, received something else
 not found          method    Requested data was not found
 not allowed        method    No permission to requested data
-connected closed   api       Connection dropped early
+connection closed  api       Connection dropped early
 connection error   request   Can't connect to API
 error              api       API returned an error, see err.details
 ```
