@@ -134,7 +134,7 @@ app.video = function( videoid, cb ) {
 				var cb = vars
 				var vars = {}
 			}
-			app.feeds.responses( videoid, vars. cb )
+			app.feeds.responses( videoid, vars, cb )
 		},
 		
 		comments: function( vars, cb ) {
