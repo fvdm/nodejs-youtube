@@ -296,6 +296,8 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					error = {origin: 'method', reason: 'not found', details: error.details}
 				} else if( error.details.code == 403 ) {
 					error = {origin: 'method', reason: 'not allowed', details: error.details}
+				} else if( error.details.message == 'Invalid id' ) {
+					error = {origin: 'method', reason: 'invalid id'}
 				}
 			}
 			
