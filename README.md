@@ -309,7 +309,7 @@ Directly talk to the API. This function takes care of connecting and calling the
 
 ```
 Param        Type       Description
---------     --------   ----------------------------------------------------
+----------   --------   ----------------------------------------------------
 path         string     full method path without leading slash
 fields       object     GET parameters
 callback     function   callback function to receive results
@@ -317,8 +317,8 @@ oldJsonKey   boolean    force old XML-to-JSON format instead of clean JSON-C
                         its value is the key containing the expected results
 ```
 
-License
-=======
+Unlicense / Public Domain
+=========================
 
 
 This is free and unencumbered software released into the public domain.
