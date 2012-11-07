@@ -72,13 +72,13 @@ err.details   : api response or other information when available, or `null`
 Messages:
 
 ```
-invalid response   api       API response can't be parsed
-not json           api       Expected JSON, received something else
-not found          method    Requested data was not found
-not allowed        method    No permission to requested data
-connection closed  api       Connection dropped early
-connection error   request   Can't connect to API
-error              api       API returned an error, see err.details
+Error: invalid response   api       API response can't be parsed
+Error: not json           api       Expected JSON, received something else
+Error: not found          method    Requested data was not found
+Error: not allowed        method    No permission to requested data
+Error: connection closed  api       Connection dropped early
+Error: connection error   request   Can't connect to API
+Error: error              api       API returned an error, see err.details
 ```
 
 
