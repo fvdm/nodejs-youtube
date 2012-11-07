@@ -76,6 +76,7 @@ Error: invalid response   api       API response can't be parsed
 Error: not json           api       Expected JSON, received something else
 Error: not found          method    Requested data was not found
 Error: not allowed        method    No permission to requested data
+Error: invalid id         method    Requested video ID is invalid
 Error: connection closed  api       Connection dropped early
 Error: connection error   request   Can't connect to API
 Error: error              api       API returned an error, see err.details
