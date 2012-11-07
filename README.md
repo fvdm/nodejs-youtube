@@ -28,6 +28,8 @@ The code on Github is the most recent version, but may be untested.
 
 ```
 git clone https://github.com/fvdm/nodejs-youtube
+cd nodejs-youtube
+npm install
 ```
 
 ```js
