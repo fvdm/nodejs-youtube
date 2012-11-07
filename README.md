@@ -303,17 +303,18 @@ Communication
 
 
 ## talk
-### ( path, [fields], callback, [oldJSON] )
+### ( path, [fields], callback, [oldJsonKey] )
 
 Directly talk to the API. This function takes care of connecting and calling the callback only when valid JSON is returned.
 
 ```
-Param      Type       Description
---------   --------   ----------------------------------------------------
-path       string     full method path without leading slash
-fields     object     GET parameters
-callback   function   callback function to receive results
-oldJSON    boolean    force old XML-to-JSON format instead of clean JSON-C
+Param        Type       Description
+--------     --------   ----------------------------------------------------
+path         string     full method path without leading slash
+fields       object     GET parameters
+callback     function   callback function to receive results
+oldJsonKey   boolean    force old XML-to-JSON format instead of clean JSON-C
+                        its value is the key containing the expected results
 ```
 
 License
