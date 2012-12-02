@@ -260,6 +260,8 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 						&& data.feed.entry === undefined
 					) {
 						error = {origin: 'api', reason: 'invalid response'}
+					} else {
+						data = data[ oldJsonKey ]
 					}
 				}
 				
