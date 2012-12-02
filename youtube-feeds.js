@@ -256,7 +256,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 						error = {origin: 'api', reason: 'invalid response'}
 					} else if(
 						oldJsonKey == 'feed.entry'
-						&& data.feed === undefined
+						&& data.feed !== undefined
 						&& data.feed.entry === undefined
 					) {
 						error = {origin: 'api', reason: 'invalid response'}
