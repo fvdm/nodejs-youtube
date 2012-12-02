@@ -77,7 +77,7 @@ app.feeds = {
 			var cb = vars
 			var vars = {}
 		}
-		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, cb, 'feed.entry' )
+		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, cb, 'feed' )
 	},
 	
 	// Standard feed
@@ -249,16 +249,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				} else if( data.error !== undefined ) {
 					error = {origin: 'api', reason: 'error', details: data.error}
 				} else if( oldJsonKey !== undefined ) {
-					if(
-						oldJsonKey == 'entry'
-						&& data.entry === undefined
-					) {
-						error = {origin: 'api', reason: 'invalid response'}
-					} else if(
-						oldJsonKey == 'feed.entry'
-						&& data.feed !== undefined
-						&& data.feed.entry === undefined
-					) {
+					if( data[ oldJsonKey ] === undefined ) {
 						error = {origin: 'api', reason: 'invalid response'}
 					} else {
 						data = data[ oldJsonKey ]
