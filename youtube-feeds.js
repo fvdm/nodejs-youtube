@@ -186,6 +186,11 @@ app.user = function( userid, cb ) {
 			app.talk( 'feeds/api/users/'+ userid, {}, cb, 'entry' )
 		}
 		
+		// Uploads
+		uploads: function( vars, cb ) {
+			app.talk( 'feeds/api/users/'+ userid +'/uploads', vars, cb)
+		}
+		
 	}
 	
 }
