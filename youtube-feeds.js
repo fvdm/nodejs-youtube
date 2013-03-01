@@ -31,7 +31,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 
-var https = require('https'),
+var http = require('http'),
     xml2json = require('node-xml2json'),
     querystring = require('querystring')
 
@@ -218,7 +218,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	// prepare
 	var options = {
 		hostname:	'gdata.youtube.com',
-		port:		443,
+		port:		80,
 		path:		'/'+ path +'?'+ querystring.stringify( fields ),
 		headers: {
 			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
@@ -228,7 +228,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	}
 	
 	// request
-	var request = https.request( options, function( response ) {
+	var request = http.request( options, function( response ) {
 		
 		// response
 		var data = ''
