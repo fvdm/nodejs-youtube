@@ -271,7 +271,7 @@ Get (public) feed data for one specific user.
 Same as [user.profile](#userprofile).
 
 ```js
-youtube.user( 'unknowntitle', console.log )
+youtube.user( 'user', console.log )
 ```
 
 
@@ -281,7 +281,7 @@ youtube.user( 'unknowntitle', console.log )
 Get user profile, in old XML-to-JSON style.
 
 ```js
-youtube.user( 'unknowntitle' ).profile( console.log )
+youtube.user( 'user' ).profile( console.log )
 ```
 
 
@@ -291,7 +291,7 @@ youtube.user( 'unknowntitle' ).profile( console.log )
 Get the user's favorite videos. You can optionally filter the results like the other feeds.
 
 ```js
-youtube.user( 'unknowntitle' ).favorites( console.log )
+youtube.user( 'user' ).favorites( console.log )
 ```
 
 ## user.playlists
