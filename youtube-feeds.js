@@ -184,7 +184,7 @@ app.user = function( userid, cb ) {
 		// Profile
 		profile: function( cb ) {
 			app.talk( 'feeds/api/users/'+ userid, {}, cb, 'entry' )
-		}
+		},
 		
 		// Uploads
 		uploads: function( vars, cb ) {
