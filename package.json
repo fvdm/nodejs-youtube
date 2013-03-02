@@ -6,7 +6,7 @@
   },
   "name":                 "youtube-feeds",
   "description":          "Access public YouTube API feeds, mostly with the clean JSON-C results",
-  "version":              "2.0.1",
+  "version":              "2.1.0",
   "repository": {
     "type":               "git",
     "url":                "git://github.com/fvdm/nodejs-youtube.git"
