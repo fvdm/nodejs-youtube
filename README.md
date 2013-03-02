@@ -300,6 +300,16 @@ youtube.user( 'unknowntitle' ).favorites( console.log )
 Get user playlists. Use **[feeds.playlist](#feedsplaylist)** to get the videos.
 
 
+## user.uploads
+### ( [vars], callback )
+
+Get the user's uploaded videos.
+
+```js
+youtube.user( 'user' ).uploads( console.log )
+```
+
+
 Communication
 =============
 
