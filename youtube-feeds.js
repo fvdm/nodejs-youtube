@@ -252,10 +252,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				if( data.data !== undefined ) {
 					data = data.data
 				} else if( data.error !== undefined ) {
-					error = {origin: 'api', reason: 'error', details: data.error}
+					error = new Error('error')
+					error.origin = 'api'
+					error.details = data.error
 				} else if( oldJsonKey !== undefined ) {
 					if( data[ oldJsonKey ] === undefined ) {
-						error = {origin: 'api', reason: 'invalid response'}
+						error = new Error('invalid response')
+						error.origin = 'api'
 					} else {
 						data = data[ oldJsonKey ]
 					}
@@ -267,58 +270,63 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				data = xml2json.parser( data )
 				
 				// fix for JSONC compatibility
-				var error = { errors: data.errors.error !== undefined ? [data.errors.error] : data.errors }
-				error.errors.forEach( function( err, errk ) {
+				error = new Error('error')
+				error.origin = 'api'
+				error.details = data.errors.error !== undefined ? [data.errors.error] : data.errors
+				
+				error.details.forEach( function( err, errk ) {
 					if( err.internalreason !== undefined ) {
-						error.errors[ errk ].internalReason = err.internalreason
-						delete error.errors[ errk ].internalreason
+						error.details[ errk ].internalReason = err.internalreason
+						delete error.details[ errk ].internalreason
 					}
 				})
-				
-				error = {origin: 'api', reason: 'error', details: error}
 				
 			} else {
 				
 				// not json
-				error = {origin: 'api', reason: 'not json'}
+				error = new Error('not json')
+				error.origin = 'api'
 				
 			}
 			
 			// parse error
-			if( error && error.origin == 'api' && error.reason == 'error' ) {
+			if( error && error.origin == 'api' && error.message == 'error' ) {
+				var errorDetails = error.details
 				if(
-					error.details.code !== undefined
-					&& error.details.errors[0] !== undefined
-					&& error.details.errors[0].code == 'ResourceNotFoundException'
+					error.details[0] !== undefined
+					&& error.details[0].code !== undefined
+					&& error.details[0].code == 'ResourceNotFoundException'
 				) {
-					error = {origin: 'method', reason: 'not found', details: error.details}
+					error = new Error('not found')
+					error.origin = 'method'
+					error.details = errorDetails
 				} else if( error.details.code == 403 ) {
-					error = {origin: 'method', reason: 'not allowed', details: error.details}
+					error = new Error('not allowed')
+					error.origin = 'method'
+					error.details = errorDetails
 				} else if( error.details.message == 'Invalid id' ) {
-					error = {origin: 'method', reason: 'invalid id'}
+					error = new Error('invalid id')
+					error.origin = 'method'
+					error.details = errorDetails
 				}
 			}
 			
 			// parse response
 			if( data.totalItems !== undefined && data.totalItems == 0 ) {
-				error = {origin: 'method', reason: 'not found'}
+				error = new Error('not found')
+				error.origin = 'method'
 			} else if(
 				data.feed !== undefined
 				&& data.feed['openSearch$totalResults'] !== undefined
 				&& data.feed['openSearch$totalResults']['$t'] !== undefined
 				&& data.feed['openSearch$totalResults']['$t'] == 0
 			) {
-				error = {origin: 'method', reason: 'not found'}
+				error = new Error('not found')
+				error.origin = 'method'
 			}
 			
 			// do callback
-			var err = null
-			if( error ) {
-				err = new Error( error.reason )
-				err.origin = error.origin
-				err.details = error.details || null
-			}
-			cb( err, data )
+			cb( error, data )
 			
 		})
 		
