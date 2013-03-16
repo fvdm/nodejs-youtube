@@ -234,15 +234,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	}
 	
 	if( app.httpProtocol === 'https' ) {
-		var http = require('https')
+		var request = require('https').request( options )
 	} else {
-		var http = require('http')
+		var request = require('http').request( options )
 	}
 	
-	// request
-	var request = http.request( options, function( response ) {
-		
-		// response
+	// response
+	request.on( 'response', function( response ) {
 		var data = ''
 		response.on( 'data', function( chunk ) { data += chunk })
 		response.on( 'end', function() {
