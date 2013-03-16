@@ -35,7 +35,9 @@ var http = require('http'),
     xml2json = require('node-xml2json'),
     querystring = require('querystring')
 
-var app = {}
+var app = {
+	httpProtocol: 'http'
+}
 
 
 ///////////
@@ -223,13 +225,18 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	// prepare
 	var options = {
 		hostname:	'gdata.youtube.com',
-		port:		80,
 		path:		'/'+ path +'?'+ querystring.stringify( fields ),
 		headers: {
 			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
 			'Accept':	'application/json'
 		},
 		method:		'GET'
+	}
+	
+	if( app.httpProtocol === 'https' ) {
+		var http = require('https')
+	} else {
+		var http = require('http')
 	}
 	
 	// request

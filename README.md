@@ -48,6 +48,22 @@ youtube.feeds.videos( {q: 'parkour'}, console.log )
 ```
 
 
+## Configuration
+
+* `httpProtocol` (_string_)
+
+Which HTTP protocol: `http` (default) or `https`
+
+
+### Example:
+
+```js
+var youtube = require('youtube-feeds')
+youtube.httpProtocol = 'https'
+youtube.feeds.videos( {q:'keywords'}, callback )
+```
+
+
 ## Callbacks
 
 Each method takes a `callback` function as last parameter. When everything seems alright `err` is null, otherwise `err` will be `instanceof Error` for tracing.
