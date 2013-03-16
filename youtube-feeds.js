@@ -241,11 +241,27 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// response
 	request.on( 'response', function( response ) {
-		var data = ''
-		response.on( 'data', function( chunk ) { data += chunk })
+		var data = []
+		var size = 0
+		
+		response.on( 'data', function( chunk ) {
+			data.push( chunk )
+			size += chunk.length
+		})
+		
 		response.on( 'end', function() {
 			
-			data = data.toString('utf8').trim()
+			// process buffer and clear mem
+			var buf = new Buffer( size )
+			var pos = 0
+			
+			for( var d in data ) {
+				data[d].copy( buf, pos )
+				pos += data[d].length
+			}
+			
+			data = buf.toString('utf8').trim()
+			
 			var error = null
 			
 			// validate
