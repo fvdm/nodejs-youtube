@@ -160,6 +160,8 @@ app.user = function( userid, cb ) {
 
 app.talk = function( path, fields, cb, oldJsonKey ) {
 	
+	var complete = false
+	
 	// fix callback
 	if( !cb && typeof fields == 'function' ) {
 		var cb = fields
@@ -203,6 +205,12 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 		})
 		
 		response.on( 'end', function() {
+			
+			if( complete ) {
+				return
+			} else {
+				complete = true
+			}
 			
 			// process buffer and clear mem
 			var buf = new Buffer( size )
@@ -306,16 +314,22 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 		
 		// early disconnect
 		response.on( 'close', function() {
-			var err = new Error( 'connection closed' )
-			err.origin = 'api'
-			cb( err )
+			if( ! complete ) {
+				complete = true
+				var err = new Error( 'connection closed' )
+				err.origin = 'api'
+				cb( err )
+			}
 		})
 		
 	})
 	
 	// no endless waiting
 	request.setTimeout( app.timeout, function() {
-		request.destroy()
+		if( ! complete ) {
+			complete = true
+			request.destroy()
+		}
 	})
 	
 	// connection error
