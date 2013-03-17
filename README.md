@@ -54,6 +54,10 @@ youtube.feeds.videos( {q: 'parkour'}, console.log )
 
 Which HTTP protocol: `http` (default) or `https`
 
+* `timeout` (integer)
+
+Destroy the request after this number of *microseconds*. Default: 30000 (30 sec).
+
 
 ### Example:
 
@@ -97,6 +101,7 @@ Error: not allowed        method    No permission to requested data
 Error: invalid id         method    Requested video ID is invalid
 Error: connection closed  api       Connection dropped early
 Error: connection error   request   Can't connect to API
+Error: request timeout    request   The request took too long to connect or process
 Error: error              api       API returned an error, see err.details
 ```
 
