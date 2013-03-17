@@ -56,7 +56,7 @@ Which HTTP protocol to use: `http` (default) or `https`
 
 * `timeout` (integer)
 
-Destroy the request after this number of *microseconds*. Default: 30000 (30 sec).
+Destroy the request after this number of *milliseconds*. Default: 30000 (30 sec).
 
 
 ### Example:
