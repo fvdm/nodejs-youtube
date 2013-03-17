@@ -50,9 +50,9 @@ youtube.feeds.videos( {q: 'parkour'}, console.log )
 
 ## Configuration
 
-* `httpProtocol` (_string_)
+* `httpProtocol` (string)
 
-Which HTTP protocol: `http` (default) or `https`
+Which HTTP protocol to use: `http` (default) or `https`
 
 * `timeout` (integer)
 
@@ -120,9 +120,9 @@ Get a list of recently published or updated videos, or search them all, filter, 
 ```js
 youtube.feeds.videos(
 	{
-		q: 		'parkour',
+		q:              'parkour',
 		'max-results':	2,
-		orderby:	'published'
+		orderby:        'published'
 	},
 	console.log
 )
