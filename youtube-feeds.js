@@ -31,12 +31,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 
-var http = require('http'),
-    xml2json = require('node-xml2json'),
+var xml2json = require('node-xml2json'),
     querystring = require('querystring')
 
 var app = {
-	httpProtocol: 'http'
+	httpProtocol: 'http',  // http, https
+	timeout:      30000    // max execution time in milliseconds
 }
 
 
@@ -157,9 +157,6 @@ app.user = function( userid, cb ) {
 /////////////////
 // COMMUNICATE //
 /////////////////
-
-// close connection when not done within N milliseconds
-app.timeout = 30000
 
 app.talk = function( path, fields, cb, oldJsonKey ) {
 	
