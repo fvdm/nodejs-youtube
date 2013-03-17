@@ -328,6 +328,9 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	request.setTimeout( app.timeout, function() {
 		if( ! complete ) {
 			complete = true
+			var err = new Error('request timeout')
+			err.origin = 'request'
+			cb( err )
 			request.destroy()
 		}
 	})
