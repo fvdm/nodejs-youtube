@@ -48,37 +48,21 @@ app.feeds = {
 	
 	// Videos
 	videos: function( vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/videos', vars, cb )
 	},
 	
 	// Related videos
 	related: function( videoid, vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/videos/'+ videoid +'/related', vars, cb )
 	},
 	
 	// Responses
 	responses: function( videoid, vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/videos/'+ videoid +'/responses', vars, cb )
 	},
 	
 	// Comments
 	comments: function( videoid, vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/videos/'+ videoid +'/comments', vars, cb, 'feed' )
 	},
 	
@@ -87,19 +71,11 @@ app.feeds = {
 	// feeds.standard( 'most_recent', console.log )
 	// feeds.standard( 'NL/top_rated_News', {time: 'today'}, console.log )
 	standard: function( feed, vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/standardfeeds/'+ feed, vars, cb )
 	},
 	
 	// Playlist
 	playlist: function( playlistid, vars, cb ) {
-		if( !cb && typeof vars == 'function' ) {
-			var cb = vars
-			var vars = {}
-		}
 		app.talk( 'feeds/api/playlists/'+ playlistid, vars, cb )
 	}
 	
@@ -124,26 +100,14 @@ app.video = function( videoid, cb ) {
 		},
 		
 		related: function( vars, cb ) {
-			if( !cb && typeof vars == 'function' ) {
-				var cb = vars
-				var vars = {}
-			}
 			app.feeds.related( videoid, vars, cb )
 		},
 		
 		responses: function( vars, cb ) {
-			if( !cb && typeof vars == 'function' ) {
-				var cb = vars
-				var vars = {}
-			}
 			app.feeds.responses( videoid, vars, cb )
 		},
 		
 		comments: function( vars, cb ) {
-			if( !cb && typeof vars == 'function' ) {
-				var cb = vars
-				var vars = {}
-			}
 			app.feeds.comments( videoid, vars, cb )
 		}
 		
@@ -167,19 +131,11 @@ app.user = function( userid, cb ) {
 		
 		// Favorites
 		favorites: function( vars, cb ) {
-			if( !cb && typeof vars == 'function' ) {
-				var cb = vars
-				var vars = {}
-			}
 			app.talk( 'feeds/api/users/'+ userid +'/favorites', vars, cb )
 		},
 		
 		// Playlists
 		playlists: function( vars, cb ) {
-			if( !cb && typeof vars == 'function' ) {
-				var cb = vars
-				var vars = {}
-			}
 			app.talk( 'feeds/api/users/'+ userid +'/playlists', vars, cb )
 		},
 		
