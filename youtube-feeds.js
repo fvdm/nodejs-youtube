@@ -234,11 +234,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				if( data.data !== undefined ) {
 					data = data.data
 				} else if( data.error !== undefined ) {
+					complete = true
 					error = new Error('error')
 					error.origin = 'api'
 					error.details = data.error
 				} else if( oldJsonKey !== undefined ) {
 					if( data[ oldJsonKey ] === undefined ) {
+						complete = true
 						error = new Error('invalid response')
 						error.origin = 'api'
 					} else {
@@ -252,6 +254,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				data = xml2json.parser( data )
 				
 				// fix for JSONC compatibility
+				complete = true
 				error = new Error('error')
 				error.origin = 'api'
 				error.details = data.errors.error !== undefined ? [data.errors.error] : data.errors
@@ -266,6 +269,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			} else {
 				
 				// not json
+				complete = true
 				error = new Error('not json')
 				error.origin = 'api'
 				
@@ -279,14 +283,17 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					&& error.details[0].code !== undefined
 					&& error.details[0].code == 'ResourceNotFoundException'
 				) {
+					complete = true
 					error = new Error('not found')
 					error.origin = 'method'
 					error.details = errorDetails
 				} else if( error.details.code == 403 ) {
+					complete = true
 					error = new Error('not allowed')
 					error.origin = 'method'
 					error.details = errorDetails
 				} else if( error.details.message == 'Invalid id' ) {
+					complete = true
 					error = new Error('invalid id')
 					error.origin = 'method'
 					error.details = errorDetails
@@ -295,6 +302,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			
 			// parse response
 			if( data.totalItems !== undefined && data.totalItems == 0 ) {
+				complete = true
 				error = new Error('not found')
 				error.origin = 'method'
 			} else if(
@@ -303,6 +311,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 				&& data.feed['openSearch$totalResults']['$t'] !== undefined
 				&& data.feed['openSearch$totalResults']['$t'] == 0
 			) {
+				complete = true
 				error = new Error('not found')
 				error.origin = 'method'
 			}
@@ -337,10 +346,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// connection error
 	request.on( 'error', function( error ) {
-		var err = new Error( 'connection error' )
-		err.origin = 'request'
-		err.details = error
-		cb( err )
+		if( ! complete ) {
+			complete = true
+			var err = new Error( 'connection error' )
+			err.origin = 'request'
+			err.details = error
+			cb( err )
+		}
 	})
 	
 	// perform and finish request
