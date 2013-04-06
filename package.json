@@ -16,7 +16,7 @@
   },
   "main":                 "youtube-feeds.js",
   "dependencies": {
-    "node-xml2json":      ">=1.0.0 <2.0.0"
+    "node-xml2json":      "1.x.x"
   },
   "devDependencies":      {},
   "optionalDependencies": {},
