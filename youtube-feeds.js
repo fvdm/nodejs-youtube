@@ -191,7 +191,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	// use X-GData-Key instead of adding it to the url, as per http://goo.gl/HEiCj
 	// basically more secure in headers than in query string
 	if ( fields.key ) {
-		options.headers['X-GData-Key'] = fields.key
+		options.headers['X-GData-Key'] = 'key=' + fields.key
 		delete fields.key
 	}
 	
