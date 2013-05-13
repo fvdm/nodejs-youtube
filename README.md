@@ -7,9 +7,6 @@ Access public YouTube API feeds from your Node.js apps
 
 ## Installation
 
-[![Build Status](https://secure.travis-ci.org/fvdm/nodejs-youtube.png?branch=master)](http://travis-ci.org/fvdm/nodejs-youtube)
-
-
 ### From npm registry
 
 The npm release is always the recent *stable* version.
