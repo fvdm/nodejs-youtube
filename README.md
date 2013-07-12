@@ -5,7 +5,8 @@ nodejs-youtube
 Access public YouTube API feeds from your Node.js apps
 
 
-## Installation
+Installation
+------------
 
 ### From npm registry
 
@@ -34,7 +35,8 @@ var youtube = require('/path/to/nodejs-youtube')
 ```
 
 
-## Usage
+Usage
+-----
 
 ```js
 // load the module
@@ -45,7 +47,8 @@ youtube.feeds.videos( {q: 'parkour'}, console.log )
 ```
 
 
-## Configuration
+Configuration
+-------------
 
 * `httpProtocol` (string)
 
@@ -65,7 +68,8 @@ youtube.feeds.videos( {q:'keywords'}, callback )
 ```
 
 
-## Callbacks
+Callbacks
+---------
 
 Each method takes a `callback` function as last parameter. When everything seems alright `err` is null, otherwise `err` will be `instanceof Error` for tracing.
 
@@ -81,33 +85,35 @@ function( err, data ) {
 
 Properties:
 
-```
-err.message   : the error message
-err.stack     : stack trace
-err.origin    : what it relates to (api, method, request)
-err.details   : api response or other information when available, or `null`
-```
+	err.message   : the error message
+	err.stack     : stack trace
+	err.origin    : what it relates to (api, method, request)
+	err.details   : api response or other information when available, or `null`
 
 Messages:
 
-```
-Error: invalid response   api       API response can't be parsed
-Error: not json           api       Expected JSON, received something else
-Error: not found          method    Requested data was not found
-Error: not allowed        method    No permission to requested data
-Error: invalid id         method    Requested video ID is invalid
-Error: connection closed  api       Connection dropped early
-Error: connection error   request   Can't connect to API
-Error: request timeout    request   The request took too long to connect or process
-Error: error              api       API returned an error, see err.details
-```
+	Error: invalid response   api       API response can't be parsed
+	Error: not json           api       Expected JSON, received something else
+	Error: not found          method    Requested data was not found
+	Error: not allowed        method    No permission to requested data
+	Error: invalid id         method    Requested video ID is invalid
+	Error: connection closed  api       Connection dropped early
+	Error: connection error   request   Can't connect to API
+	Error: request timeout    request   The request took too long to connect or process
+	Error: error              api       API returned an error, see err.details
+
+
+===========================================================================================
 
 
 Feeds
-=====
+-----
+
+Retrieve lists, search videos, related material.
 
 
-## feeds.videos
+feeds.videos
+------------
 ### ( [vars], callback )
 
 Get a list of recently published or updated videos, or search them all, filter, sort, etc.
@@ -174,25 +180,29 @@ Output:
 ```
 
 
-## feeds.related
+feeds.related
+-------------
 ### ( videoid, [vars], callback )
 
 Get related videos for a video with **videoid**.
 
 
-## feeds.responses 
+feeds.responses 
+---------------
 ### ( videoid, [vars], callback )
 
 Get videos in response to **videoid**.
 
 
-## feeds.comments
+feeds.comments
+--------------
 ### ( videoid, [vars], callback )
 
 Get comments to a video. This is still in the original XML-to-JSON format as YouTube does not have JSON-C available for this feed. This may change in future (major) versions of this module.
 
 
-## feeds.standard
+feeds.standard
+--------------
 ### ( feed, [vars], callback )
 
 Get a standard feed, such as most viewed or top rated videos. Worldwide, local or by subject (or a combination).
@@ -214,20 +224,25 @@ youtube.feeds.standard( 'NL/top_rated_News', {time: 'today'}, console.log )
 ```
 
 
-## feeds.playlist
+feeds.playlist
+--------------
 ### ( playlistid, [vars], callback )
 
 Get videos on a certain playlist.
 
 
+===========================================================================================
+
+
 Video
-=====
+-----
 
 
 The **video** function provides shorthand methods for one specific video.
 
 
-## video
+video
+-----
 ### ( videoid, [callback] )
 
 Same as [video.details](#videodetails)
@@ -237,7 +252,8 @@ youtube.video( 'ern37eWDnT0', console.log )
 ```
 
 
-## video.details
+video.details
+-------------
 ### ( callback )
 
 Get details for one video.
@@ -247,7 +263,8 @@ youtube.video( 'ern37eWDnT0' ).details( console.log )
 ```
 
 
-## video.related
+video.related
+-------------
 ### ( [vars], callback )
 
 Get related videos, same as [feeds.related](#feedsrelated).
@@ -257,7 +274,8 @@ youtube.video( 'ern37eWDnT0' ).related( {'max-results': 2}, console.log )
 ```
 
 
-## video.responses
+video.responses
+---------------
 ### ( [vars], callback )
 
 Get videos in response to one video, same as [feeds.responses](#feedsresponses).
@@ -267,7 +285,8 @@ youtube.video( 'ern37eWDnT0' ).responses( {'max-results': 2}, console.log )
 ```
 
 
-## videos.comments
+videos.comments
+---------------
 ### ( [vars], callback )
 
 Get comments to a video, same as [feeds.comments](#feedscomments).
@@ -277,13 +296,17 @@ youtube.video( 'ern37eWDnT0' ).comments( {'max-results': 2}, console.log )
 ```
 
 
+===========================================================================================
+
+
 User
-====
+----
 
 Get (public) feed data for one specific user.
 
 
-## user
+user
+----
 ### ( userid, [callback] )
 
 Same as [user.profile](#userprofile).
@@ -293,7 +316,8 @@ youtube.user( 'user', console.log )
 ```
 
 
-## user.profile
+user.profile
+------------
 ### ( callback )
 
 Get user profile, in old XML-to-JSON style.
@@ -303,7 +327,8 @@ youtube.user( 'user' ).profile( console.log )
 ```
 
 
-## user.favorites
+user.favorites
+--------------
 ### ( [vars], callback )
 
 Get the user's favorite videos. You can optionally filter the results like the other feeds.
@@ -312,13 +337,15 @@ Get the user's favorite videos. You can optionally filter the results like the o
 youtube.user( 'user' ).favorites( console.log )
 ```
 
-## user.playlists
+user.playlists
+--------------
 ### ( [vars], callback )
 
 Get user playlists. Use **[feeds.playlist](#feedsplaylist)** to get the videos.
 
 
-## user.uploads
+user.uploads
+------------
 ### ( [vars], callback )
 
 Get the user's uploaded videos.
@@ -327,28 +354,28 @@ Get the user's uploaded videos.
 youtube.user( 'user' ).uploads( console.log )
 ```
 
-
-Communication
-=============
+===========================================================================================
 
 
-## talk
+talk
+----
 ### ( path, [fields], callback, [oldJsonKey] )
 
 Directly talk to the API. This function takes care of connecting and calling the callback only when valid JSON is returned.
 
-```
-Param        Type       Description
-----------   --------   ----------------------------------------------------
-path         string     full method path without leading slash
-fields       object     GET parameters
-callback     function   callback function to receive results
-oldJsonKey   boolean    force old XML-to-JSON format instead of clean JSON-C
-                        its value is the key containing the expected results
-```
+
+	Param        Type       Description
+	----------   --------   ----------------------------------------------------
+	path         string     full method path without leading slash
+	fields       object     GET parameters
+	callback     function   callback function to receive results
+	oldJsonKey   boolean    force old XML-to-JSON format instead of clean JSON-C
+	                        its value is the key containing the expected results
+
+
 
 Unlicense / Public Domain
-=========================
+-------------------------
 
 
 This is free and unencumbered software released into the public domain.
