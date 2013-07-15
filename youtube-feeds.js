@@ -274,6 +274,19 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					}
 				})
 				
+			} else if( data.indexOf('<H2>Error ') ) {
+				
+				// html error response
+				complete = true
+				var error = new Error('error')
+				data.replace( /<H1>([^<]+)<\/H1>\n<H2>Error (\d+)<\/H2>/, function( s, reason, code ) {
+					error.origin = 'api'
+					error.details = {
+						internalReason: reason,
+						code: code
+					}
+				})
+				
 			} else {
 				
 				// not json
