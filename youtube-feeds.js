@@ -305,6 +305,11 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					error = new Error('invalid id')
 					error.origin = 'method'
 					error.details = errorDetails
+				} else if( error.details[0] && error.details[0].internalReason == 'Developer key required for this operation' ) {
+					complete = true
+					error = new Error('developer key missing')
+					error.origin = 'api'
+					error.details = errorDetails
 				}
 			}
 			
