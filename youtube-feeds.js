@@ -36,7 +36,8 @@ var xml2json = require('node-xml2json'),
 
 var app = {
 	httpProtocol: 'http',  // http, https
-	timeout:      30000    // max execution time in milliseconds
+	timeout:      30000,   // max execution time in milliseconds
+	developerKey: null     // YouTube developer key
 }
 
 
@@ -190,8 +191,8 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// use X-GData-Key instead of adding it to the url, as per http://goo.gl/HEiCj
 	// basically more secure in headers than in query string
-	if ( fields.key ) {
-		options.headers['X-GData-Key'] = 'key=' + fields.key
+	if ( fields.key || app.developerKey ) {
+		options.headers['X-GData-Key'] = 'key=' + fields.key || app.developerKey
 		delete fields.key
 	}
 	
