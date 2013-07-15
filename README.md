@@ -58,6 +58,12 @@ Which HTTP protocol to use: `http` (default) or `https`
 
 Destroy the request after this number of *milliseconds*. Default: 30000 (30 sec).
 
+* `developerKey` (string)
+
+Set your YouTube developer key ([manage](http://code.google.com/apis/youtube/dashboard/)).
+This is required for some methods, ie. [user.activity](#useractivity).
+You can also temporarily override the global setting with the `key` property in a method's vars.
+
 
 ### Example:
 
