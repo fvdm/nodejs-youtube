@@ -89,7 +89,7 @@ app.feeds = {
 
 app.video = function( videoid, cb ) {
 	
-	if( typeof cb == 'function' ) {
+	if( typeof cb === 'function' ) {
 		app.talk( 'feeds/api/videos/'+ videoid, cb )
 	}
 	
@@ -124,7 +124,7 @@ app.video = function( videoid, cb ) {
 // User
 app.user = function( userid, cb ) {
 	
-	if( cb && typeof cb == 'function' ) {
+	if( cb && typeof cb === 'function' ) {
 		app.user( userid ).profile( cb )
 	}
 	
@@ -164,13 +164,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	var complete = false
 	
 	// fix callback
-	if( !cb && typeof fields == 'function' ) {
+	if( !cb && typeof fields === 'function' ) {
 		var cb = fields
 		var fields = {}
 	}
 	
 	// fix fields
-	if( !fields || typeof fields != 'object' ) {
+	if( !fields || typeof fields !== 'object' ) {
 		var fields = {}
 	}
 	
@@ -297,12 +297,12 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			}
 			
 			// parse error
-			if( error && error.origin == 'api' && error.message == 'error' ) {
+			if( error && error.origin === 'api' && error.message === 'error' ) {
 				var errorDetails = error.details
 				if(
 					error.details[0] !== undefined
 					&& error.details[0].code !== undefined
-					&& error.details[0].code == 'ResourceNotFoundException'
+					&& error.details[0].code === 'ResourceNotFoundException'
 				) {
 					complete = true
 					error = new Error('not found')
@@ -313,12 +313,12 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					error = new Error('not allowed')
 					error.origin = 'method'
 					error.details = errorDetails
-				} else if( error.details.message == 'Invalid id' ) {
+				} else if( error.details.message === 'Invalid id' ) {
 					complete = true
 					error = new Error('invalid id')
 					error.origin = 'method'
 					error.details = errorDetails
-				} else if( error.details[0] && error.details[0].internalReason == 'Developer key required for this operation' ) {
+				} else if( error.details[0] && error.details[0].internalReason === 'Developer key required for this operation' ) {
 					complete = true
 					error = new Error('developer key missing')
 					error.origin = 'api'
