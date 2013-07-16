@@ -36,7 +36,7 @@ var xml2json = require('node-xml2json'),
 
 var app = {
 	httpProtocol: 'http',  // http, https
-	timeout:      30000,   // max execution time in milliseconds
+	timeout:      5000,    // max execution time in milliseconds
 	developerKey: null     // YouTube developer key
 }
 
