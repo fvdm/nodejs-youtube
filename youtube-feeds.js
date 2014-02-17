@@ -36,7 +36,8 @@ var xml2json = require('node-xml2json'),
 
 var app = {
 	httpProtocol: 'http',  // http, https
-	timeout:      30000    // max execution time in milliseconds
+	timeout:      5000,    // max execution time in milliseconds
+	developerKey: null     // YouTube developer key
 }
 
 
@@ -88,7 +89,7 @@ app.feeds = {
 
 app.video = function( videoid, cb ) {
 	
-	if( typeof cb == 'function' ) {
+	if( typeof cb === 'function' ) {
 		app.talk( 'feeds/api/videos/'+ videoid, cb )
 	}
 	
@@ -123,7 +124,7 @@ app.video = function( videoid, cb ) {
 // User
 app.user = function( userid, cb ) {
 	
-	if( cb && typeof cb == 'function' ) {
+	if( cb && typeof cb === 'function' ) {
 		app.user( userid ).profile( cb )
 	}
 	
@@ -146,7 +147,6 @@ app.user = function( userid, cb ) {
 		
 		// Uploads
 		uploads: function( vars, cb ) {
-            vars.v=2
 			app.talk( 'feeds/api/users/'+ userid +'/uploads', vars, cb)
 		}
 		
@@ -164,13 +164,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	var complete = false
 	
 	// fix callback
-	if( !cb && typeof fields == 'function' ) {
+	if( !cb && typeof fields === 'function' ) {
 		var cb = fields
 		var fields = {}
 	}
 	
 	// fix fields
-	if( !fields || typeof fields != 'object' ) {
+	if( !fields || typeof fields !== 'object' ) {
 		var fields = {}
 	}
 	
@@ -188,7 +188,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 		},
 		method:		'GET'
 	}
-    console.log('YOUTUBE-FEEDS',options.path)
+	
+	// use X-GData-Key instead of adding it to the url, as per http://goo.gl/HEiCj
+	// basically more secure in headers than in query string
+	if ( fields.key || app.developerKey ) {
+		options.headers['X-GData-Key'] = 'key=' + fields.key || app.developerKey
+		delete fields.key
+	}
 	
 	if( app.httpProtocol === 'https' ) {
 		var request = require('https').request( options )
@@ -218,9 +224,9 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			var buf = new Buffer( size )
 			var pos = 0
 			
-			for( var d in data ) {
-				data[d].copy( buf, pos )
-				pos += data[d].length
+			for( var i = 0; i < data.length; ++i ) {
+				data[i].copy( buf, pos )
+				pos += data[i].length
 			}
 			
 			data = buf.toString('utf8').trim()
@@ -268,7 +274,21 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					}
 				})
 				
+			} else if( data.indexOf('<H2>Error ') ) {
+				
+				// html error response
+				complete = true
+				var error = new Error('error')
+				data.replace( /<H1>([^<]+)<\/H1>\n<H2>Error (\d+)<\/H2>/, function( s, reason, code ) {
+					error.origin = 'api'
+					error.details = {
+						internalReason: reason,
+						code: code
+					}
+				})
+				
 			} else {
+				
 				// not json
 				complete = true
 				error = new Error('not json')
@@ -277,12 +297,12 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 			}
 			
 			// parse error
-			if( error && error.origin == 'api' && error.message == 'error' ) {
+			if( error && error.origin === 'api' && error.message === 'error' ) {
 				var errorDetails = error.details
 				if(
 					error.details[0] !== undefined
 					&& error.details[0].code !== undefined
-					&& error.details[0].code == 'ResourceNotFoundException'
+					&& error.details[0].code === 'ResourceNotFoundException'
 				) {
 					complete = true
 					error = new Error('not found')
@@ -293,10 +313,15 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					error = new Error('not allowed')
 					error.origin = 'method'
 					error.details = errorDetails
-				} else if( error.details.message == 'Invalid id' ) {
+				} else if( error.details.message === 'Invalid id' ) {
 					complete = true
 					error = new Error('invalid id')
 					error.origin = 'method'
+					error.details = errorDetails
+				} else if( error.details[0] && error.details[0].internalReason === 'Developer key required for this operation' ) {
+					complete = true
+					error = new Error('developer key missing')
+					error.origin = 'api'
 					error.details = errorDetails
 				}
 			}
