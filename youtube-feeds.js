@@ -256,7 +256,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					}
 				}
 				
-			} else if( data.match( /^<errors .+<\/errors>$/ ) ) {
+			} else if( data.match( /^<errors .+<\/errors>$/ ) || data.match( /^<\?xml version.+<\/errors>$/ ) ) {
 				
 				// xml error response
 				data = xml2json.parser( data )
