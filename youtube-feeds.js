@@ -184,7 +184,8 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 		path: '/'+ path +'?'+ querystring.stringify( fields ),
 		headers: {
 			'User-Agent': 'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
-			'Accept': 'application/json'
+			'Accept': 'application/json',
+			'GData-Version': '2'
 		},
 		method: 'GET'
 	}
