@@ -31,8 +31,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 */
 
-var xml2json = require('node-xml2json'),
-    querystring = require('querystring')
+var xml2json = require('node-xml2json')
+var querystring = require('querystring')
 
 var app = {
 	httpProtocol: 'http',  // http, https
@@ -147,7 +147,7 @@ app.user = function( userid, cb ) {
 		
 		// Uploads
 		uploads: function( vars, cb ) {
-			app.talk( 'feeds/api/users/'+ userid +'/uploads', vars, cb)
+			app.talk( 'feeds/api/users/'+ userid +'/uploads', vars, cb )
 		}
 		
 	}
@@ -180,13 +180,13 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 	
 	// prepare
 	var options = {
-		hostname:	'gdata.youtube.com',
-		path:		'/'+ path +'?'+ querystring.stringify( fields ),
+		hostname: 'gdata.youtube.com',
+		path: '/'+ path +'?'+ querystring.stringify( fields ),
 		headers: {
-			'User-Agent':	'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
-			'Accept':	'application/json'
+			'User-Agent': 'youtube-feeds.js (https://github.com/fvdm/nodejs-youtube)',
+			'Accept': 'application/json'
 		},
-		method:		'GET'
+		method: 'GET'
 	}
 	
 	// use X-GData-Key instead of adding it to the url, as per http://goo.gl/HEiCj
