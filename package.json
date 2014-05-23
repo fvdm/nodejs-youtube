@@ -5,8 +5,8 @@
     "url":                "http://frankl.in"
   },
   "name":                 "youtube-feeds",
-  "description":          "Access public YouTube API feeds, mostly with the clean JSON-C results",
   "version":              "2.2.1",
+  "description":          "Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
   "repository": {
     "type":               "git",
     "url":                "git://github.com/fvdm/nodejs-youtube.git"
@@ -23,7 +23,7 @@
   "engines": {
     "node":               "<=0.8.3 >=0.10.0"
   },
-  "keywords":             ["youtube", "video", "feeds", "api"],
+  "keywords":             ["youtube", "youtubev2", "video", "feeds", "api"],
   "license": {
     "type":               "Public Domain",
     "url":                "https://github.com/fvdm/nodejs-youtube/raw/master/UNLICENSE"
