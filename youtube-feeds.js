@@ -275,7 +275,7 @@ app.talk = function( path, fields, cb, oldJsonKey ) {
 					}
 				})
 				
-			} else if( data.indexOf('<H2>Error ') ) {
+			} else if( ~data.indexOf('<H2>Error ') ) {
 				
 				// html error response
 				complete = true
