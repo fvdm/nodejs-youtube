@@ -5,6 +5,18 @@ nodejs-youtube
 Access public YouTube API feeds from your Node.js apps
 
 
+End of life notice
+------------------
+
+This module relies heavily on YouTube Data API v2 which will be deprecated on **April 20th 2015**
+to be replaced by version 3 of their API. Maintenance will continue on this module until it
+stops functioning on the above mentioned date.
+
+It is recommended for all users to switch to a YouTube module with API v3 support.
+
+Suggestion: [youtube-api](https://www.npmjs.org/package/youtube-api) on npm ([Github](https://github.com/IonicaBizau/youtube-api))
+
+
 Installation
 ------------
 
