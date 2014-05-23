@@ -5,8 +5,8 @@
     "url":                "http://frankl.in"
   },
   "name":                 "youtube-feeds",
-  "version":              "2.2.1",
   "description":          "Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
+  "version":              "2.3.0",
   "repository": {
     "type":               "git",
     "url":                "git://github.com/fvdm/nodejs-youtube.git"
