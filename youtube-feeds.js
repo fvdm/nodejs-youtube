@@ -124,8 +124,12 @@ app.user = function( userid, cb ) {
 		// Uploads
 		uploads: function( vars, cb ) {
 			app.talk( 'feeds/api/users/'+ userid +'/uploads', vars, cb )
-		}
+		},
 		
+		// New subscription videos
+		newsubscriptionvideos: function( vars, cb ) {
+			app.talk( 'feeds/api/users/'+ userid +'/newsubscriptionvideos', vars, cb )
+		}
 	}
 	
 }
