@@ -21,7 +21,7 @@
   "devDependencies":      {},
   "optionalDependencies": {},
   "engines": {
-    "node":               "<=0.8.3 >=0.10.0"
+    "node":               ">=0.8.28"
   },
   "keywords":             ["youtube", "youtubev2", "video", "feeds", "api"],
   "license": {
