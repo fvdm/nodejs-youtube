@@ -169,10 +169,10 @@ app.talk = function (path, fields, cb, oldJsonKey) {
 
   var http = require ('http');
   if (app.httpProtocol === 'https') {
-    http = require ('https')
+    http = require ('https');
   }
 
-  request = http.request (options);
+  var request = http.request (options);
 
   // response
   request.on ('response', function (response) {
