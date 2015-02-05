@@ -1,5 +1,5 @@
-nodejs-youtube
-==============
+youtube-feeds
+=============
 
 
 Access public YouTube API feeds from your Node.js apps
