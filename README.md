@@ -55,9 +55,9 @@ developerKey | string  |         | Your YouTube [developer key](http://code.goog
 ### Example:
 
 ```js
-var youtube = require('youtube-feeds')
-youtube.httpProtocol = 'https'
-youtube.feeds.videos( {q:'keywords'}, callback )
+var youtube = require ('youtube-feeds');
+youtube.httpProtocol = 'https';
+youtube.feeds.videos ({q: 'keywords'}, callback);
 ```
 
 
@@ -67,11 +67,11 @@ Callbacks
 Each method takes a `callback` function as last parameter. When everything seems alright `err` is null, otherwise `err` will be `instanceof Error` for tracing.
 
 ```js
-function( err, data ) {
-	if( err instanceof Error ) {
-		console.log( err )
+function (err, data) {
+	if (err) {
+		console.log (err);
 	} else {
-		console.log( data )
+		console.log (data);
 	}
 }
 ```
@@ -102,7 +102,7 @@ error                 | api     | API returned an error, see err.details
 developer key missing | api     | developerKey is not set, see Configuration.
 
 
-===========================================================================================
+=================================================================================
 
 
 Feeds
@@ -120,14 +120,14 @@ Get a list of recently published or updated videos, or search them all, filter, 
 [API docs: custom query parameters](https://developers.google.com/youtube/2.0/developers_guide_protocol_api_query_parameters#Custom_parameters)
 
 ```js
-youtube.feeds.videos(
+youtube.feeds.videos (
 	{
 		q:              'parkour',
 		'max-results':	2,
 		orderby:        'published'
 	},
 	console.log
-)
+);
 ```
 
 Output:
@@ -212,14 +212,14 @@ Get a standard feed, such as most viewed or top rated videos. Worldwide, local o
 **Example:** most recent videos worldwide:
 
 ```js
-youtube.feeds.standard( 'most_recent', console.log )
+youtube.feeds.standard ('most_recent', console.log);
 ```
 
 
 **Example:** today's top-rated News videos in the Netherlands:
 
 ```js
-youtube.feeds.standard( 'NL/top_rated_News', {time: 'today'}, console.log )
+youtube.feeds.standard ('NL/top_rated_News', {time: 'today'}, console.log);
 ```
 
 
@@ -230,12 +230,11 @@ feeds.playlist
 Get videos on a certain playlist.
 
 
-===========================================================================================
+=======================================================================
 
 
 Video
 -----
-
 
 The **video** function provides shorthand methods for one specific video.
 
@@ -247,7 +246,7 @@ video
 Same as [video.details](#videodetails)
 
 ```js
-youtube.video( 'ern37eWDnT0', console.log )
+youtube.video ('ern37eWDnT0', console.log);
 ```
 
 
@@ -258,7 +257,7 @@ video.details
 Get details for one video.
 
 ```js
-youtube.video( 'ern37eWDnT0' ).details( console.log )
+youtube.video ('ern37eWDnT0').details (console.log);
 ```
 
 
@@ -269,7 +268,7 @@ video.related
 Get related videos, same as [feeds.related](#feedsrelated).
 
 ```js
-youtube.video( 'ern37eWDnT0' ).related( {'max-results': 2}, console.log )
+youtube.video ('ern37eWDnT0').related ({'max-results': 2}, console.log);
 ```
 
 
@@ -280,7 +279,7 @@ video.responses
 Get videos in response to one video, same as [feeds.responses](#feedsresponses).
 
 ```js
-youtube.video( 'ern37eWDnT0' ).responses( {'max-results': 2}, console.log )
+youtube.video ('ern37eWDnT0').responses ({'max-results': 2}, console.log);
 ```
 
 
@@ -291,11 +290,11 @@ videos.comments
 Get comments to a video, same as [feeds.comments](#feedscomments).
 
 ```js
-youtube.video( 'ern37eWDnT0' ).comments( {'max-results': 2}, console.log )
+youtube.video ('ern37eWDnT0').comments ({'max-results': 2}, console.log);
 ```
 
 
-===========================================================================================
+=======================================================================
 
 
 User
@@ -311,7 +310,7 @@ user
 Same as [user.profile](#userprofile).
 
 ```js
-youtube.user( 'user', console.log )
+youtube.user ('user', console.log);
 ```
 
 
@@ -322,7 +321,7 @@ user.profile
 Get user profile, in old XML-to-JSON style.
 
 ```js
-youtube.user( 'user' ).profile( console.log )
+youtube.user ('user').profile (console.log);
 ```
 
 
@@ -333,8 +332,9 @@ user.favorites
 Get the user's favorite videos. You can optionally filter the results like the other feeds.
 
 ```js
-youtube.user( 'user' ).favorites( console.log )
+youtube.user ('user').favorites (console.log);
 ```
+
 
 user.playlists
 --------------
@@ -350,10 +350,11 @@ user.uploads
 Get the user's uploaded videos.
 
 ```js
-youtube.user( 'user' ).uploads( console.log )
+youtube.user ('user').uploads (console.log);
 ```
 
-===========================================================================================
+
+=======================================================================
 
 
 talk
@@ -373,7 +374,6 @@ oldJsonKey | boolean  | force old XML-to-JSON format instead of clean JSON-C its
 
 Unlicense / Public Domain
 -------------------------
-
 
 This is free and unencumbered software released into the public domain.
 
