@@ -176,7 +176,6 @@ app.talk = function (path, fields, cb, oldJsonKey) {
   request.on ('response', function (response) {
     var data = [];
     var size = 0;
-    var error = null;
 
     response.on ('data', function (chunk) {
       data.push (chunk);
