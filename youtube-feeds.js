@@ -167,10 +167,12 @@ app.talk = function (path, fields, cb, oldJsonKey) {
     delete fields.key;
   }
 
-  var request = require ('http');
+  var http = require ('http');
   if (app.httpProtocol === 'https') {
-    request = require ('https').request (options);
+    http = require ('https')
   }
+
+  request = http.request (options);
 
   // response
   request.on ('response', function (response) {
