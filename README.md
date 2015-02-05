@@ -4,6 +4,8 @@ youtube-feeds
 
 Access public YouTube API feeds from your Node.js apps
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-youtube.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-youtube)
+
 
 End of life notice
 ------------------
