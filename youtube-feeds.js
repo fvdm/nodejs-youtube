@@ -191,7 +191,7 @@ app.talk = function (path, fields, cb, oldJsonKey) {
       }
 
       // process buffer and clear mem
-      var data = new Buffer.concat (data, size).toString ('utf8').trim ();
+      data = new Buffer.concat (data, size).toString ('utf8').trim ();
       var error = null;
 
       // validate
