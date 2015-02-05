@@ -303,7 +303,7 @@ app.talk = function (path, fields, cb, oldJsonKey) {
   });
 
   // no endless waiting
-  request.setTimeout (app.timeout, function () {
+  request.setTimeout (parseInt (app.timeout), function () {
     if (!complete) {
       complete = true;
       var err = new Error ('request timeout');
