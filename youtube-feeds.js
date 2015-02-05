@@ -135,17 +135,17 @@ app.talk = function (path, fields, cb, oldJsonKey) {
 
   // fix callback
   if (!cb && typeof fields === 'function') {
-    var cb = fields;
-    var fields = {};
+    cb = fields;
+    fields = {};
   }
 
   // fix fields
   if (!fields || typeof fields !== 'object') {
-    var fields = {};
+    fields = {};
   }
 
   // force JSON-C and version
-  fields.alt = oldJsonKey !== undefined ? 'json' : 'jsonc';
+  fields.alt = oldJsonKey ? 'json' : 'jsonc';
   fields.v = 2;
 
   // prepare
@@ -167,16 +167,16 @@ app.talk = function (path, fields, cb, oldJsonKey) {
     delete fields.key;
   }
 
+  var request = require ('http');
   if (app.httpProtocol === 'https') {
-    var request = require ('https').request (options);
-  } else {
-    var request = require ('http').request (options);
+    request = require ('https').request (options);
   }
 
   // response
   request.on ('response', function (response) {
     var data = [];
     var size = 0;
+    var error = null;
 
     response.on ('data', function (chunk) {
       data.push (chunk);
@@ -208,15 +208,15 @@ app.talk = function (path, fields, cb, oldJsonKey) {
         // ok
         data = JSON.parse (data);
 
-        if (data.data !== undefined) {
+        if (data.data) {
           data = data.data;
-        } else if (data.error !== undefined) {
+        } else if (data.error) {
           complete = true;
           error = new Error ('error');
           error.origin = 'api';
           error.details = data.error;
-        } else if (oldJsonKey !== undefined) {
-          if (data[ oldJsonKey ] === undefined) {
+        } else if (oldJsonKey) {
+          if (!data[oldJsonKey]) {
             complete = true;
             error = new Error ('invalid response');
             error.origin = 'api';
@@ -231,18 +231,18 @@ app.talk = function (path, fields, cb, oldJsonKey) {
         complete = true;
         error = new Error ('error');
         error.origin = 'api';
-        error.details = data.errors.error !== undefined ? [data.errors.error] : data.errors;
+        error.details = data.errors.error ? [data.errors.error] : data.errors;
 
         error.details.forEach (function (err, errk) {
-          if (err.internalreason !== undefined) {
+          if (err.internalreason) {
             error.details[errk].internalReason = err.internalreason;
             delete error.details[errk].internalreason;
           }
         });
-      } else if (~data.indexOf ('<H2>Error ')) {
+      } else if (!!~data.indexOf ('<H2>Error ')) {
         // html error response
         complete = true;
-        var error = new Error ('error');
+        error = new Error ('error');
         data.replace (/<H1>([^<]+)<\/H1>\n<H2>Error (\d+)<\/H2>/, function (s, reason, code) {
           error.origin = 'api';
           error.details = {
@@ -260,16 +260,12 @@ app.talk = function (path, fields, cb, oldJsonKey) {
       // parse error
       if (error && error.origin === 'api' && error.message === 'error') {
         var errorDetails = error.details;
-        if(
-          error.details[0] !== undefined
-          && error.details[0].code !== undefined
-          && error.details[0].code === 'ResourceNotFoundException'
-        ) {
+        if (error.details[0] && error.details[0].code && error.details[0].code === 'ResourceNotFoundException') {
           complete = true;
           error = new Error ('not found');
           error.origin = 'method';
           error.details = errorDetails;
-        } else if (error.details.code == 403) {
+        } else if (error.details.code === 403) {
           complete = true;
           error = new Error ('not allowed');
           error.origin = 'method';
@@ -288,16 +284,11 @@ app.talk = function (path, fields, cb, oldJsonKey) {
       }
 
       // parse response
-      if (data.totalItems !== undefined && data.totalItems == 0) {
+      if (data.totalItems && data.totalItems === 0) {
         complete = true;
         error = new Error ('not found');
         error.origin = 'method';
-      } else if(
-        data.feed !== undefined
-        && data.feed['openSearch$totalResults'] !== undefined
-        && data.feed['openSearch$totalResults']['$t'] !== undefined
-        && data.feed['openSearch$totalResults']['$t'] == 0
-      ) {
+      } else if (data.feed && data.feed.openSearch$totalResults && data.feed.openSearch$totalResults.$t && data.feed.openSearch$totalResults.$t === 0) {
         complete = true;
         error = new Error ('not found');
         error.origin = 'method';
@@ -342,7 +333,7 @@ app.talk = function (path, fields, cb, oldJsonKey) {
 
   // perform and finish request
   request.end();
-}
+};
 
 // ready
 module.exports = app;
