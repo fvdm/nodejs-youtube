@@ -14,7 +14,8 @@ stops functioning on the above mentioned date.
 
 It is recommended for all users to switch to a YouTube module with API v3 support.
 
-Suggestion: [youtube-api](https://www.npmjs.org/package/youtube-api) on npm ([Github](https://github.com/IonicaBizau/youtube-api))
+
+> See the Wiki for a working example: <https://github.com/fvdm/nodejs-youtube/wiki>
 
 
 Installation
