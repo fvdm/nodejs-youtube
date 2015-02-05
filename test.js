@@ -12,7 +12,7 @@ var util = require ('util');
 var app = require ('./');
 app.httpProtocol = process.env.YOUTUBE_PROTOCOL || 'http';
 app.timeout = process.env.YOUTUBE_TIMEOUT || 5000;
-developerKey = process.env.YOUTUBE_KEY || null;
+app.developerKey = process.env.YOUTUBE_KEY || null;
 
 
 // handle exits
@@ -89,7 +89,7 @@ queue.push (function () {
 });
 
 queue.push (function () {
-  app.video (0, function (err, data) {
+  app.video (0, function (err) {
     doTest (null, 'Error: invalid id', [
       ['type', err && err instanceof Error],
       ['message', err && err.message === 'invalid id']
