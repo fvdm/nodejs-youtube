@@ -239,7 +239,7 @@ app.talk = function (path, fields, cb, oldJsonKey) {
             delete error.details[errk].internalreason;
           }
         });
-      } else if (!!~data.indexOf ('<H2>Error ')) {
+      } else if (data.match (/<H2>Error /)) {
         // html error response
         complete = true;
         error = new Error ('error');
