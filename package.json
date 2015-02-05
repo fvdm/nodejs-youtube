@@ -23,6 +23,9 @@
   "engines": {
     "node":               ">=0.8.28"
   },
+  "scripts": {
+    "test":               "node test.js"
+  },
   "keywords":             ["youtube", "youtubev2", "video", "feeds", "api"],
   "license": {
     "type":               "Public Domain",
