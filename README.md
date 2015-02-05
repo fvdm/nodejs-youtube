@@ -21,31 +21,9 @@ It is recommended for all users to switch to a YouTube module with API v3 suppor
 Installation
 ------------
 
-### From npm registry
+Stable: `npm install youtube-feeds`
 
-The npm release is always the recent *stable* version.
-
-```
-npm install youtube-feeds
-```
-
-```js
-var youtube = require('youtube-feeds')
-```
-
-### From Github
-
-The code on Github is the most recent version, but may be untested.
-
-```
-git clone https://github.com/fvdm/nodejs-youtube
-cd nodejs-youtube
-npm install
-```
-
-```js
-var youtube = require('/path/to/nodejs-youtube')
-```
+Develop: `npm install fvdm/youtube-feeds#develop`
 
 
 Usage
