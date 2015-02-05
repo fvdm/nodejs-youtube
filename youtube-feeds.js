@@ -275,7 +275,7 @@ app.talk = function (path, fields, cb, oldJsonKey) {
       }
 
       // parse response
-      if (data.totalItems && data.totalItems === 0) {
+      if (typeof data.totalItems !== 'undefined' && data.totalItems === 0) {
         complete = true;
         error = new Error ('not found');
         error.origin = 'method';
