@@ -1,32 +1,38 @@
 {
   "author": {
-    "name":               "Franklin van de Meent",
-    "email":              "fr@nkl.in",
-    "url":                "http://frankl.in"
+    "name": "Franklin van de Meent",
+    "email": "fr@nkl.in",
+    "url": "http://frankl.in"
   },
-  "name":                 "youtube-feeds",
-  "description":          "Deprecated, use googleapis instead. Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
-  "version":              "2.4.0",
+  "name": "youtube-feeds",
+  "description": "Deprecated, use googleapis instead. Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
+  "version": "2.4.1",
   "repository": {
-    "type":               "git",
-    "url":                "git://github.com/fvdm/nodejs-youtube.git"
+    "type": "git",
+    "url": "git://github.com/fvdm/nodejs-youtube.git"
   },
   "bugs": {
-    "url":                "https://github.com/fvdm/nodejs-youtube/issues"
+    "url": "https://github.com/fvdm/nodejs-youtube/issues"
   },
-  "main":                 "youtube-feeds.js",
+  "main": "youtube-feeds.js",
   "dependencies": {
-    "node-xml2json":      "1.x.x"
+    "node-xml2json": "1.x.x"
   },
-  "devDependencies":      {},
+  "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
-    "node":               ">=0.8.28"
+    "node": ">=0.8.28"
   },
   "scripts": {
-    "preinstall":         "node deprecated.js",
-    "test":               "node test.js"
+    "preinstall": "node deprecated.js",
+    "test": "node test.js"
   },
-  "keywords":             ["youtube", "youtubev2", "video", "feeds", "api"],
-  "license":              "Unlicense"
+  "keywords": [
+    "youtube",
+    "youtubev2",
+    "video",
+    "feeds",
+    "api"
+  ],
+  "license": "Unlicense"
 }
