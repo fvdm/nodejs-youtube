@@ -5,7 +5,7 @@
     "url":                "http://frankl.in"
   },
   "name":                 "youtube-feeds",
-  "description":          "Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
+  "description":          "Deprecated, use googleapis instead. Access public YouTube Data API v2 feeds, mostly with the clean JSON-C results",
   "version":              "2.4.0",
   "repository": {
     "type":               "git",
@@ -24,11 +24,9 @@
     "node":               ">=0.8.28"
   },
   "scripts": {
+    "preinstall":         "node deprecated.js",
     "test":               "node test.js"
   },
   "keywords":             ["youtube", "youtubev2", "video", "feeds", "api"],
-  "license": {
-    "type":               "Public Domain",
-    "url":                "https://github.com/fvdm/nodejs-youtube/raw/master/UNLICENSE"
-  }
+  "license":              "Unlicense"
 }

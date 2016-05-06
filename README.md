@@ -7,17 +7,16 @@ Access public YouTube API feeds from your Node.js apps
 [![Build Status](https://travis-ci.org/fvdm/nodejs-youtube.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-youtube)
 
 
-End of life notice
-------------------
+DEPRECATED
+----------
 
-This module relies heavily on YouTube Data API v2 which will be deprecated on **April 20th 2015**
-to be replaced by version 3 of their API. Maintenance will continue on this module until it
-stops functioning on the above mentioned date.
+This module relies heavily on YouTube Data API v2 which was deprecated on **April 20th 2015**
+to be replaced by version 3 of their API. The code is not being maintained anymore.
 
 It is recommended for all users to switch to a YouTube module with API v3 support.
 
 
-> See the Wiki for a working example: <https://github.com/fvdm/nodejs-youtube/wiki>
+**See the Wiki for a working example:** <https://github.com/fvdm/nodejs-youtube/wiki>
 
 
 Installation
@@ -406,6 +405,5 @@ For more information, please refer to <http://unlicense.org>
 Author
 ------
 
-Franklin van de Meent
-| [Website](https://frankl.in)
-| [Github](https://github.com/fvdm)
+[Franklin van de Meent](https://frankl.in)
+
